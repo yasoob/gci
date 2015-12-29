@@ -367,5 +367,120 @@ venv1 hook.log
 </description>
     </item>
     
+    <item>
+      <title>Making a Flask app with login functionality</title>
+      <link>http://yasoob.github.io/gci/post/flask%20login%20app/</link>
+      <pubDate>Tue, 22 Dec 2015 04:42:46 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/flask%20login%20app/</guid>
+      <description>
+
+&lt;p&gt;Hi there guys! In this post I will share my experience with you while developing a Flask app with login functionality. The sourcecode of the app is available &lt;a href=&#34;https://github.com/yasoob/flask-login&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We will be using the following libraries:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Flask (obviously)&lt;/li&gt;
+&lt;li&gt;Flask-SQLAlchemy&lt;/li&gt;
+&lt;li&gt;Jinja2&lt;/li&gt;
+&lt;li&gt;SQLAlchemy&lt;/li&gt;
+&lt;li&gt;Werkzeug&lt;/li&gt;
+&lt;li&gt;Flask-WTF&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;First-of-all we will define a &lt;strong&gt;User&lt;/strong&gt; model. It goes something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class User(db.Model):
+    __tablename__ = &#39;user&#39;
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+    password = db.Column(db.String(120))
+    email = db.Column(db.String(240))
+
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def __repr__(self):
+        return &#39;&amp;lt;User %r&amp;gt;&#39; % self.name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We did a couple of things here. They are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assigned &lt;code&gt;user&lt;/code&gt; as the tablename&lt;/li&gt;
+&lt;li&gt;created 4 fields with &lt;code&gt;id&lt;/code&gt; as the primary_key&lt;/li&gt;
+&lt;li&gt;created 2 custom methods, &lt;code&gt;set_password&lt;/code&gt; and &lt;code&gt;check_password&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Modified the output of &lt;code&gt;__repr___&lt;/code&gt; to make it more user-friendly&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The 2 custom methods allow us to save password hashes instead of plain-text passwords. Always make sure that you save only the hashes and not the plain-text passwords so that if you database is somehow compromized, the plain-text passwords are not leaked.&lt;/p&gt;
+
+&lt;h2 id=&#34;views:6d79db0366d5708a8361ae566681a4cf&#34;&gt;Views:&lt;/h2&gt;
+
+&lt;p&gt;There are four views in my app. Namely:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;home&lt;/li&gt;
+&lt;li&gt;login&lt;/li&gt;
+&lt;li&gt;signup&lt;/li&gt;
+&lt;li&gt;logout&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;###&lt;code&gt;home&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;This route simply redirects to the &lt;code&gt;login&lt;/code&gt; view if the user is not logged in. We check that the user is logged in or not by running the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if session[&#39;user_name&#39;]:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This only runs if there is a &lt;code&gt;user_name&lt;/code&gt; key in the session dict. So if there is not &lt;code&gt;user_name&lt;/code&gt; in the session dict we simply redirect the user to login by running this code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return redirect(url_for(&#39;login&#39;),401)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;401&lt;/strong&gt; stands for un-authorized. This status code tells the user that he is not authorized to view this page.&lt;/p&gt;
+
+&lt;p&gt;###&lt;code&gt;login&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;In this view we create an instance of the &lt;code&gt;LoginForm&lt;/code&gt; and present it to the user if he is not logged in. If the user submits the form correctly and a user with the email specified exists in our server, we redirect the user to the &lt;code&gt;home&lt;/code&gt; view. We check that the user_email is in the database and the password is correct by running the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;user = User.query.filter_by(email=form.email.data).first()
+if user is not None and user.check_password(form.password.data):
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If it is correct then we modify the session variables by running this code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;session[&#39;user_email&#39;] = form.email.data
+session[&#39;user_name&#39;] = user.name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If it is incorrect then we present the errors to the user and ask him/her to try again.&lt;/p&gt;
+
+&lt;p&gt;###&lt;code&gt;signup&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;This view is kind-of similar to the login view. In this view we create an instance of the &lt;code&gt;SignupForm&lt;/code&gt; form and present it to the user. If the form is validated on submit then we create a user in our database with the supplied information.&lt;/p&gt;
+
+&lt;p&gt;Finally, we redirect the user to the home view.&lt;/p&gt;
+
+&lt;p&gt;###&lt;code&gt;logout&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;This view simply pops the &lt;code&gt;user_name&lt;/code&gt; and &lt;code&gt;user_email&lt;/code&gt; values from the &lt;code&gt;session&lt;/code&gt; dict.&lt;/p&gt;
+
+&lt;p&gt;There is one other decorated method as well. It is &lt;code&gt;check_user_status&lt;/code&gt;. It is called before every request. It allows us to modify a couple of variables to our liking. We use it to modify the &lt;code&gt;session&lt;/code&gt; variable.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:6d79db0366d5708a8361ae566681a4cf&#34;&gt;Conclusion:&lt;/h2&gt;
+
+&lt;p&gt;The key here is the &lt;code&gt;session&lt;/code&gt; dict. We use it to check whether the user is logged-in or not. I hope you enjoyed this short intro. You can always checkout the whole source-code of the &lt;code&gt;app.py&lt;/code&gt; file from the &lt;a href=&#34;https://github.com/yasoob/flask-login/blob/master/app.py&#34;&gt;project&lt;/a&gt; to get a better understanding.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
