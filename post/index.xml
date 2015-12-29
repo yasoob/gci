@@ -6,8 +6,55 @@
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 02:38:37 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>wine1.8 ubuntu</title>
+      <link>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</link>
+      <pubDate>Wed, 30 Dec 2015 02:38:37 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</guid>
+      <description>
+
+&lt;h1 id=&#34;installing-wine-1-8-on-ubuntu-14-04:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine 1.8 on Ubuntu 14.04&lt;/h1&gt;
+
+&lt;p&gt;Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.&lt;/p&gt;
+
+&lt;p&gt;In this post I will show you how you can install Wine on Ubuntu 14.04. It is really easy to install it. We will be doing most of our work on the command-line using &lt;code&gt;apt&lt;/code&gt;. It is the best and easiest way to add &lt;code&gt;ppa&lt;/code&gt;s and install &lt;code&gt;pakages&lt;/code&gt; in linux.&lt;/p&gt;
+
+&lt;h2 id=&#34;adding-the-ppa:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Adding the PPA:&lt;/h2&gt;
+
+&lt;p&gt;The first step is to add the &lt;code&gt;ppa&lt;/code&gt; to your system. You can easily do this by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:ubuntu-wine/ppa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/tz215JA.png&#34; alt=&#34;adding the ppa&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;update-the-packages-list:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Update the packages list:&lt;/h2&gt;
+
+&lt;p&gt;Now we need to update the packages list. We can do that easily as well. Just type in the following command in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/DsOIFXv.png&#34; alt=&#34;updating&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-wine:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine:&lt;/h2&gt;
+
+&lt;p&gt;Now we are on the last step. In this step we will install wine itself. Just type the following commands in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install wine1.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Checkout this Asciinema cast which I recently made to showcase the whole installation procedure:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://asciinema.org/a/32603.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There you go! Wine is installed! :)&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>

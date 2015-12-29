@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>wine1.8 ubuntu - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">wine1.8 ubuntu</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-30">December 30, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<h1 id="installing-wine-1-8-on-ubuntu-14-04:a312123215a2f39fcfdf0a1148149d1d">Installing Wine 1.8 on Ubuntu 14.04</h1>
+
+<p>Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.</p>
+
+<p>In this post I will show you how you can install Wine on Ubuntu 14.04. It is really easy to install it. We will be doing most of our work on the command-line using <code>apt</code>. It is the best and easiest way to add <code>ppa</code>s and install <code>pakages</code> in linux.</p>
+
+<h2 id="adding-the-ppa:a312123215a2f39fcfdf0a1148149d1d">Adding the PPA:</h2>
+
+<p>The first step is to add the <code>ppa</code> to your system. You can easily do this by running the following command:</p>
+
+<pre><code>sudo add-apt-repository ppa:ubuntu-wine/ppa
+</code></pre>
+
+<p><img src="http://imgur.com/tz215JA.png" alt="adding the ppa" /></p>
+
+<h2 id="update-the-packages-list:a312123215a2f39fcfdf0a1148149d1d">Update the packages list:</h2>
+
+<p>Now we need to update the packages list. We can do that easily as well. Just type in the following command in the terminal:</p>
+
+<pre><code>sudo apt-get update
+</code></pre>
+
+<p><img src="http://imgur.com/DsOIFXv.png" alt="updating" /></p>
+
+<h2 id="installing-wine:a312123215a2f39fcfdf0a1148149d1d">Installing Wine:</h2>
+
+<p>Now we are on the last step. In this step we will install wine itself. Just type the following commands in the terminal:</p>
+
+<pre><code>sudo apt-get install wine1.8
+</code></pre>
+
+<p>Checkout this Asciinema cast which I recently made to showcase the whole installation procedure:</p>
+
+<p><img src="https://asciinema.org/a/32603.png" alt="img" /></p>
+
+<p>There you go! Wine is installed! :)</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
