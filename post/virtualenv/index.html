@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>Virtual Environment - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Virtual Environment</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-26">December 26, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>Have you ever heard of <code>virtualenv</code>? If you are a beginner,
+then you might not have heard about it but if you are a
+seasoned programmer then it may well be a vital part of your toolset.</p>
+
+<p>So what is <code>virtualenv</code>? <code>Virtualenv</code> is a tool which allows us to
+make isolated python environments. Imagine you have an application that
+needs version 2 of a library, but another application requires
+version 3. How can you use and develop both these applications?</p>
+
+<p>If you install everything into <code>/usr/lib/python2.7/site-packages</code> (or
+whatever your platform&rsquo;s standard location is), it&rsquo;s easy to end up in a
+situation where you unintentionally upgrade a package.</p>
+
+<p>In another case, imagine that you have an application which is fully
+developed and you do not want to make any change to the libraries it is
+using but at the same time you start developing another application
+which requires the updated versions of those libraries.</p>
+
+<p>What will you do? Use <code>virtualenv</code>! It creates isolated environments
+for your python application and allows you to install Python libraries
+in that isolated environment instead of installing them globally.</p>
+
+<p>To install it, just type this command in the shell:</p>
+
+<p>.. code:: python</p>
+
+<pre><code>$ pip install virtualenv
+</code></pre>
+
+<p>The most important commands are:</p>
+
+<ul>
+<li><code>$ virtualenv myproject</code></li>
+<li><code>$ source bin/activate</code></li>
+</ul>
+
+<p>This first one makes an isolated virtualenv environment in the
+<code>myproject</code> folder and the second command activates that isolated
+environment.</p>
+
+<p>While creating the virtualenv you have to make a decision. Do you
+want this virtualenv to use packages from your system <code>site-packages</code>
+or install them in the virtualenv’s site-packages? By default,
+virtualenv will not give access to the global <code>site-packages</code>.</p>
+
+<p>If you want your <code>virtualenv</code> to have access to your systems
+<code>site-packages</code>, use the <code>--system-site-packages</code> switch when creating
+your virtualenv like this:</p>
+
+<p>.. code:: python</p>
+
+<pre><code>$ virtualenv --system-site-packages mycoolproject
+</code></pre>
+
+<p>You can turn off the <code>env</code> by typing:</p>
+
+<p>.. code:: python</p>
+
+<pre><code>$ deactivate
+</code></pre>
+
+<p>Running <code>python</code> after deactivating will use your system installation
+of Python again.</p>
+
+<h2 id="virtualenvwrapper:ae2a870b41789da9c4f71e0ac6bfd0c3">Virtualenvwrapper</h2>
+
+<p>Virtualenv wrapper is a set of extensions for virtualenv. These extensions make your life easier and improve your deveopment workflow. The features of virtualenvwrapper are (taken from project page):</p>
+
+<ul>
+<li>Features</li>
+<li>Organizes all of your virtual environments in one place.</li>
+<li>Wrappers for managing your virtual environments (create, delete, copy).</li>
+<li>Use a single command to switch between environments.</li>
+<li>Tab completion for commands that take a virtual environment as argument.</li>
+<li>User-configurable hooks for all operations (see Per-User Customization).</li>
+<li>Plugin system for more creating sharable extensions (see Extending Virtualenvwrapper).</li>
+</ul>
+
+<p>Most importantly virtualenvwrapper stores all your virtual environments in one place and allows you to shift from one environment to another quite easily. You can install it by running the following commands:</p>
+
+<pre><code>$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs
+$ mkdir -p $WORKON_HOME
+$ source /usr/local/bin/virtualenvwrapper.sh
+</code></pre>
+
+<p>Now you can create your first environment by running:</p>
+
+<pre><code>$ mkvirtualenv venv1
+</code></pre>
+
+<p>You can see that it installed the virtual environment in the <code>~/Envs</code> directory by running the following command:</p>
+
+<pre><code>(venv1)$ ls $WORKON_HOME
+venv1 hook.log
+</code></pre>
+
+<p>Now you can install the software in the usual way by using pip:</p>
+
+<pre><code>(venv1)$ pip install flask
+</code></pre>
+
+<p>You can create multiple environments and shift from one to another quite easily:</p>
+
+<pre><code>(venv1)$ mkvirtualenv venv2
+(venv2)$ workon venv1
+</code></pre>
+
+<p>You can even copy virtual environments:</p>
+
+<pre><code>(venv1)$ cpvirtualenv venv1 dest
+</code></pre>
+
+<p>The above command creates a new virtual environment with the name of <code>dest</code>. Lastly you can deactivate a virtual environment by running:</p>
+
+<pre><code>deactivate
+</code></pre>
+
+<p>There are <strong>a lot</strong> of other cool virtualenwrapper commands which I did not list here. You can check them out over <a href="https://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html">here</a>. I hope you liked this short intro to virtualenv and virtualenvwrapper.</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
