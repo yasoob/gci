@@ -6,183 +6,8 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 02:41:53 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Virtual Environment</title>
-      <link>http://yasoob.github.io/gci/post/virtualenv/</link>
-      <pubDate>Wed, 30 Dec 2015 02:41:53 +0500</pubDate>
-      
-      <guid>http://yasoob.github.io/gci/post/virtualenv/</guid>
-      <description>
-
-&lt;p&gt;Have you ever heard of &lt;code&gt;virtualenv&lt;/code&gt;? If you are a beginner,
-then you might not have heard about it but if you are a
-seasoned programmer then it may well be a vital part of your toolset.&lt;/p&gt;
-
-&lt;p&gt;So what is &lt;code&gt;virtualenv&lt;/code&gt;? &lt;code&gt;Virtualenv&lt;/code&gt; is a tool which allows us to
-make isolated python environments. Imagine you have an application that
-needs version 2 of a library, but another application requires
-version 3. How can you use and develop both these applications?&lt;/p&gt;
-
-&lt;p&gt;If you install everything into &lt;code&gt;/usr/lib/python2.7/site-packages&lt;/code&gt; (or
-whatever your platform&amp;rsquo;s standard location is), it&amp;rsquo;s easy to end up in a
-situation where you unintentionally upgrade a package.&lt;/p&gt;
-
-&lt;p&gt;In another case, imagine that you have an application which is fully
-developed and you do not want to make any change to the libraries it is
-using but at the same time you start developing another application
-which requires the updated versions of those libraries.&lt;/p&gt;
-
-&lt;p&gt;What will you do? Use &lt;code&gt;virtualenv&lt;/code&gt;! It creates isolated environments
-for your python application and allows you to install Python libraries
-in that isolated environment instead of installing them globally.&lt;/p&gt;
-
-&lt;p&gt;To install it, just type this command in the shell:&lt;/p&gt;
-
-&lt;p&gt;.. code:: python&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The most important commands are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;$ virtualenv myproject&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;$ source bin/activate&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This first one makes an isolated virtualenv environment in the
-&lt;code&gt;myproject&lt;/code&gt; folder and the second command activates that isolated
-environment.&lt;/p&gt;
-
-&lt;p&gt;While creating the virtualenv you have to make a decision. Do you
-want this virtualenv to use packages from your system &lt;code&gt;site-packages&lt;/code&gt;
-or install them in the virtualenv’s site-packages? By default,
-virtualenv will not give access to the global &lt;code&gt;site-packages&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you want your &lt;code&gt;virtualenv&lt;/code&gt; to have access to your systems
-&lt;code&gt;site-packages&lt;/code&gt;, use the &lt;code&gt;--system-site-packages&lt;/code&gt; switch when creating
-your virtualenv like this:&lt;/p&gt;
-
-&lt;p&gt;.. code:: python&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ virtualenv --system-site-packages mycoolproject
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can turn off the &lt;code&gt;env&lt;/code&gt; by typing:&lt;/p&gt;
-
-&lt;p&gt;.. code:: python&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ deactivate
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Running &lt;code&gt;python&lt;/code&gt; after deactivating will use your system installation
-of Python again.&lt;/p&gt;
-
-&lt;h2 id=&#34;virtualenvwrapper:ae2a870b41789da9c4f71e0ac6bfd0c3&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
-
-&lt;p&gt;Virtualenv wrapper is a set of extensions for virtualenv. These extensions make your life easier and improve your deveopment workflow. The features of virtualenvwrapper are (taken from project page):&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Features&lt;/li&gt;
-&lt;li&gt;Organizes all of your virtual environments in one place.&lt;/li&gt;
-&lt;li&gt;Wrappers for managing your virtual environments (create, delete, copy).&lt;/li&gt;
-&lt;li&gt;Use a single command to switch between environments.&lt;/li&gt;
-&lt;li&gt;Tab completion for commands that take a virtual environment as argument.&lt;/li&gt;
-&lt;li&gt;User-configurable hooks for all operations (see Per-User Customization).&lt;/li&gt;
-&lt;li&gt;Plugin system for more creating sharable extensions (see Extending Virtualenvwrapper).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Most importantly virtualenvwrapper stores all your virtual environments in one place and allows you to shift from one environment to another quite easily. You can install it by running the following commands:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
-$ export WORKON_HOME=~/Envs
-$ mkdir -p $WORKON_HOME
-$ source /usr/local/bin/virtualenvwrapper.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now you can create your first environment by running:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkvirtualenv venv1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can see that it installed the virtual environment in the &lt;code&gt;~/Envs&lt;/code&gt; directory by running the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;(venv1)$ ls $WORKON_HOME
-venv1 hook.log
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now you can install the software in the usual way by using pip:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;(venv1)$ pip install flask
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can create multiple environments and shift from one to another quite easily:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;(venv1)$ mkvirtualenv venv2
-(venv2)$ workon venv1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can even copy virtual environments:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;(venv1)$ cpvirtualenv venv1 dest
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The above command creates a new virtual environment with the name of &lt;code&gt;dest&lt;/code&gt;. Lastly you can deactivate a virtual environment by running:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;deactivate
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are &lt;strong&gt;a lot&lt;/strong&gt; of other cool virtualenwrapper commands which I did not list here. You can check them out over &lt;a href=&#34;https://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html&#34;&gt;here&lt;/a&gt;. I hope you liked this short intro to virtualenv and virtualenvwrapper.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Installing Wine 1.8 on Ubuntu 14.04</title>
-      <link>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</link>
-      <pubDate>Wed, 30 Dec 2015 02:38:37 +0500</pubDate>
-      
-      <guid>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</guid>
-      <description>
-
-&lt;p&gt;Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.&lt;/p&gt;
-
-&lt;p&gt;In this post I will show you how you can install Wine on Ubuntu 14.04. It is really easy to install it. We will be doing most of our work on the command-line using &lt;code&gt;apt&lt;/code&gt;. It is the best and easiest way to add &lt;code&gt;ppa&lt;/code&gt;s and install &lt;code&gt;pakages&lt;/code&gt; in linux.&lt;/p&gt;
-
-&lt;h2 id=&#34;adding-the-ppa:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Adding the PPA:&lt;/h2&gt;
-
-&lt;p&gt;The first step is to add the &lt;code&gt;ppa&lt;/code&gt; to your system. You can easily do this by running the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:ubuntu-wine/ppa
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://imgur.com/tz215JA.png&#34; alt=&#34;adding the ppa&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;update-the-packages-list:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Update the packages list:&lt;/h2&gt;
-
-&lt;p&gt;Now we need to update the packages list. We can do that easily as well. Just type in the following command in the terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get update
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://imgur.com/DsOIFXv.png&#34; alt=&#34;updating&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;installing-wine:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine:&lt;/h2&gt;
-
-&lt;p&gt;Now we are on the last step. In this step we will install wine itself. Just type the following commands in the terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install wine1.8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Checkout this Asciinema cast which I recently made to showcase the whole installation procedure:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://asciinema.org/a/32603.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;There you go! Wine is installed! :)&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>
@@ -350,6 +175,181 @@ $ git push -u origin master
 &lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/gci15.fossasia.org/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;GCI Fossasia&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/open-event-orga-server&#34;&gt;Open Event Orga Server&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installing Wine 1.8 on Ubuntu 14.04</title>
+      <link>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</link>
+      <pubDate>Tue, 29 Dec 2015 02:38:37 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</guid>
+      <description>
+
+&lt;p&gt;Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.&lt;/p&gt;
+
+&lt;p&gt;In this post I will show you how you can install Wine on Ubuntu 14.04. It is really easy to install it. We will be doing most of our work on the command-line using &lt;code&gt;apt&lt;/code&gt;. It is the best and easiest way to add &lt;code&gt;ppa&lt;/code&gt;s and install &lt;code&gt;pakages&lt;/code&gt; in linux.&lt;/p&gt;
+
+&lt;h2 id=&#34;adding-the-ppa:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Adding the PPA:&lt;/h2&gt;
+
+&lt;p&gt;The first step is to add the &lt;code&gt;ppa&lt;/code&gt; to your system. You can easily do this by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:ubuntu-wine/ppa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/tz215JA.png&#34; alt=&#34;adding the ppa&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;update-the-packages-list:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Update the packages list:&lt;/h2&gt;
+
+&lt;p&gt;Now we need to update the packages list. We can do that easily as well. Just type in the following command in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/DsOIFXv.png&#34; alt=&#34;updating&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-wine:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine:&lt;/h2&gt;
+
+&lt;p&gt;Now we are on the last step. In this step we will install wine itself. Just type the following commands in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install wine1.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Checkout this Asciinema cast which I recently made to showcase the whole installation procedure:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://asciinema.org/a/32603.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There you go! Wine is installed! :)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virtual Environment</title>
+      <link>http://yasoob.github.io/gci/post/virtualenv/</link>
+      <pubDate>Sat, 26 Dec 2015 02:41:53 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/virtualenv/</guid>
+      <description>
+
+&lt;p&gt;Have you ever heard of &lt;code&gt;virtualenv&lt;/code&gt;? If you are a beginner,
+then you might not have heard about it but if you are a
+seasoned programmer then it may well be a vital part of your toolset.&lt;/p&gt;
+
+&lt;p&gt;So what is &lt;code&gt;virtualenv&lt;/code&gt;? &lt;code&gt;Virtualenv&lt;/code&gt; is a tool which allows us to
+make isolated python environments. Imagine you have an application that
+needs version 2 of a library, but another application requires
+version 3. How can you use and develop both these applications?&lt;/p&gt;
+
+&lt;p&gt;If you install everything into &lt;code&gt;/usr/lib/python2.7/site-packages&lt;/code&gt; (or
+whatever your platform&amp;rsquo;s standard location is), it&amp;rsquo;s easy to end up in a
+situation where you unintentionally upgrade a package.&lt;/p&gt;
+
+&lt;p&gt;In another case, imagine that you have an application which is fully
+developed and you do not want to make any change to the libraries it is
+using but at the same time you start developing another application
+which requires the updated versions of those libraries.&lt;/p&gt;
+
+&lt;p&gt;What will you do? Use &lt;code&gt;virtualenv&lt;/code&gt;! It creates isolated environments
+for your python application and allows you to install Python libraries
+in that isolated environment instead of installing them globally.&lt;/p&gt;
+
+&lt;p&gt;To install it, just type this command in the shell:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The most important commands are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$ virtualenv myproject&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ source bin/activate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This first one makes an isolated virtualenv environment in the
+&lt;code&gt;myproject&lt;/code&gt; folder and the second command activates that isolated
+environment.&lt;/p&gt;
+
+&lt;p&gt;While creating the virtualenv you have to make a decision. Do you
+want this virtualenv to use packages from your system &lt;code&gt;site-packages&lt;/code&gt;
+or install them in the virtualenv’s site-packages? By default,
+virtualenv will not give access to the global &lt;code&gt;site-packages&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want your &lt;code&gt;virtualenv&lt;/code&gt; to have access to your systems
+&lt;code&gt;site-packages&lt;/code&gt;, use the &lt;code&gt;--system-site-packages&lt;/code&gt; switch when creating
+your virtualenv like this:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ virtualenv --system-site-packages mycoolproject
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can turn off the &lt;code&gt;env&lt;/code&gt; by typing:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running &lt;code&gt;python&lt;/code&gt; after deactivating will use your system installation
+of Python again.&lt;/p&gt;
+
+&lt;h2 id=&#34;virtualenvwrapper:ae2a870b41789da9c4f71e0ac6bfd0c3&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
+
+&lt;p&gt;Virtualenv wrapper is a set of extensions for virtualenv. These extensions make your life easier and improve your deveopment workflow. The features of virtualenvwrapper are (taken from project page):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Features&lt;/li&gt;
+&lt;li&gt;Organizes all of your virtual environments in one place.&lt;/li&gt;
+&lt;li&gt;Wrappers for managing your virtual environments (create, delete, copy).&lt;/li&gt;
+&lt;li&gt;Use a single command to switch between environments.&lt;/li&gt;
+&lt;li&gt;Tab completion for commands that take a virtual environment as argument.&lt;/li&gt;
+&lt;li&gt;User-configurable hooks for all operations (see Per-User Customization).&lt;/li&gt;
+&lt;li&gt;Plugin system for more creating sharable extensions (see Extending Virtualenvwrapper).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Most importantly virtualenvwrapper stores all your virtual environments in one place and allows you to shift from one environment to another quite easily. You can install it by running the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs
+$ mkdir -p $WORKON_HOME
+$ source /usr/local/bin/virtualenvwrapper.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can create your first environment by running:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv venv1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see that it installed the virtual environment in the &lt;code&gt;~/Envs&lt;/code&gt; directory by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ ls $WORKON_HOME
+venv1 hook.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can install the software in the usual way by using pip:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ pip install flask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can create multiple environments and shift from one to another quite easily:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ mkvirtualenv venv2
+(venv2)$ workon venv1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can even copy virtual environments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ cpvirtualenv venv1 dest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command creates a new virtual environment with the name of &lt;code&gt;dest&lt;/code&gt;. Lastly you can deactivate a virtual environment by running:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are &lt;strong&gt;a lot&lt;/strong&gt; of other cool virtualenwrapper commands which I did not list here. You can check them out over &lt;a href=&#34;https://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html&#34;&gt;here&lt;/a&gt;. I hope you liked this short intro to virtualenv and virtualenvwrapper.&lt;/p&gt;
 </description>
     </item>
     
