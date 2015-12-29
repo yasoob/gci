@@ -238,7 +238,7 @@ $ git push -u origin master
     </item>
     
     <item>
-      <title>Virtual Environment</title>
+      <title>Virtual Environment in Python</title>
       <link>http://yasoob.github.io/gci/post/virtualenv/</link>
       <pubDate>Sat, 26 Dec 2015 02:41:53 +0500</pubDate>
       
