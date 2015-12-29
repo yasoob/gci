@@ -104,27 +104,64 @@ $ cd new_site
 <pre><code>$ git clone --depth 1 --recursive https://github.com/spf13/hugoThemes.git themes
 </code></pre>
 
-<p>Now we are ready to actually test our blog.</p>
-
-<p><strong>8.Building the blog</strong></p>
+<p>Now you can test various themes by typing the following command:</p>
 
 <pre><code>$ hugo server --theme=hyde --buildDrafts
 </code></pre>
 
+<p>This will generate your blog and you can view it on <code>localhost:1313</code>. Just change the &ndash;theme flag to test various themes.</p>
+
+<p>Now we are ready to actually push our blog to GitHub.</p>
+
+<p><strong>8.Building the blog</strong></p>
+
+<p>First of all we need to edit the <code>config.toml</code> file. Add the following information in it:</p>
+
+<pre><code>baseurl = &quot;http://yasoob.me/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;Yasoob Khalid&quot;
+author = &quot;yasoob&quot;
+theme = &quot;hugo-zen&quot;
+
+[params]
+  logo      = &quot;/images/logo.jpg&quot;
+  copyright = &quot;Yasoob. All rights reserved.&quot;
+  twitter   = &quot;https://twitter.com/yasoobkhalid&quot;
+  facebook  = &quot;https://www.facebook.com/m.yasoob&quot;
+  github    = &quot;https://github.com/yasoob/&quot;
+  email     = &quot;yasoob.khld@gmail.com&quot;
+
+</code></pre>
+
+<p>Replace the above variables with your own info. Now type this command:</p>
+
+<pre><code>$ hugo
+</code></pre>
+
+<p>This will generate your blog inside a <code>public</code> directory.</p>
+
 <p><strong>9.Setup a new repo on GitHub</strong></p>
 
-<p>Make a git repository in the current folder and commit all the changes. You can easily do this:</p>
+<p>Make a git repository in the public folder and commit all the changes. You can easily do this:</p>
 
-<pre><code>$ git init .
+<pre><code>$ cd public
+$ git init .
 $ git add .
 $ git commit -m &quot;created my awesome hugo blog&quot;
 </code></pre>
 
-<p>Now goto GitHub and create a new repo. We will name it <code>hugo_blog</code> for the sake of this tutorial. We will add a remote in our repository.</p>
+<p>Now goto GitHub and create a new repo. We will name it <code>hugo_blog</code> for the sake of this tutorial. After that we will add a remote in our repository.</p>
 
-<ul>
-<li>A new file is now created in content/ with the following contents:</li>
-</ul>
+<pre><code>$ git checkout -b gh-pages
+$ git remote add origin git@github.com:yasoob/hugo_blog.git
+$ git push -u origin gh-pages
+</code></pre>
+
+<p><strong>10.Test it out!</strong></p>
+
+<p>Now you can browse to the newly published blog. You can find it at the following url <code>&lt;github_username&gt;.github.io/hugo_blog</code></p>
+
+<p>Cheers!</p>
 
 			</section>
 		</article>

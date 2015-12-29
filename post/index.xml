@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Yasoob Khalid</title>
-    <link>http://yasoob.me/post/</link>
+    <link>http://yasoob.me/gci/post/</link>
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
-    <atom:link href="http://yasoob.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://yasoob.me/gci/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>
-      <link>http://yasoob.me/post/installing%20hugo/</link>
+      <link>http://yasoob.me/gci/post/installing%20hugo/</link>
       <pubDate>Wed, 30 Dec 2015 01:11:10 +0500</pubDate>
       
-      <guid>http://yasoob.me/post/installing%20hugo/</guid>
+      <guid>http://yasoob.me/gci/post/installing%20hugo/</guid>
       <description>&lt;p&gt;Hugo is a static website generator which is written using golang. It is extremely fast and lightweight. You can use it to create a blog or full blown away corporate website. In this post I will show you how you can deploy a blog made with Hugo to GitHub pages. Let&amp;rsquo;s start!&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1.Download the binary&lt;/strong&gt;&lt;/p&gt;
@@ -90,27 +90,64 @@ $ cd new_site
 &lt;pre&gt;&lt;code&gt;$ git clone --depth 1 --recursive https://github.com/spf13/hugoThemes.git themes
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now we are ready to actually test our blog.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;8.Building the blog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Now you can test various themes by typing the following command:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ hugo server --theme=hyde --buildDrafts
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;This will generate your blog and you can view it on &lt;code&gt;localhost:1313&lt;/code&gt;. Just change the &amp;ndash;theme flag to test various themes.&lt;/p&gt;
+
+&lt;p&gt;Now we are ready to actually push our blog to GitHub.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8.Building the blog&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;First of all we need to edit the &lt;code&gt;config.toml&lt;/code&gt; file. Add the following information in it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baseurl = &amp;quot;http://yasoob.me/&amp;quot;
+languageCode = &amp;quot;en-us&amp;quot;
+title = &amp;quot;Yasoob Khalid&amp;quot;
+author = &amp;quot;yasoob&amp;quot;
+theme = &amp;quot;hugo-zen&amp;quot;
+
+[params]
+  logo      = &amp;quot;/images/logo.jpg&amp;quot;
+  copyright = &amp;quot;Yasoob. All rights reserved.&amp;quot;
+  twitter   = &amp;quot;https://twitter.com/yasoobkhalid&amp;quot;
+  facebook  = &amp;quot;https://www.facebook.com/m.yasoob&amp;quot;
+  github    = &amp;quot;https://github.com/yasoob/&amp;quot;
+  email     = &amp;quot;yasoob.khld@gmail.com&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Replace the above variables with your own info. Now type this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will generate your blog inside a &lt;code&gt;public&lt;/code&gt; directory.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;9.Setup a new repo on GitHub&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Make a git repository in the current folder and commit all the changes. You can easily do this:&lt;/p&gt;
+&lt;p&gt;Make a git repository in the public folder and commit all the changes. You can easily do this:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git init .
+&lt;pre&gt;&lt;code&gt;$ cd public
+$ git init .
 $ git add .
 $ git commit -m &amp;quot;created my awesome hugo blog&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now goto GitHub and create a new repo. We will name it &lt;code&gt;hugo_blog&lt;/code&gt; for the sake of this tutorial. We will add a remote in our repository.&lt;/p&gt;
+&lt;p&gt;Now goto GitHub and create a new repo. We will name it &lt;code&gt;hugo_blog&lt;/code&gt; for the sake of this tutorial. After that we will add a remote in our repository.&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;A new file is now created in content/ with the following contents:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;$ git checkout -b gh-pages
+$ git remote add origin git@github.com:yasoob/hugo_blog.git
+$ git push -u origin gh-pages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;10.Test it out!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can browse to the newly published blog. You can find it at the following url &lt;code&gt;&amp;lt;github_username&amp;gt;.github.io/hugo_blog&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Cheers!&lt;/p&gt;
 </description>
     </item>
     
