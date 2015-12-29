@@ -368,34 +368,6 @@ venv1 hook.log
     </item>
     
     <item>
-      <title>About Me</title>
-      <link>http://yasoob.github.io/gci/about/</link>
-      <pubDate>Wed, 23 Dec 2015 01:00:52 +0500</pubDate>
-      
-      <guid>http://yasoob.github.io/gci/about/</guid>
-      <description>&lt;p&gt;I am &lt;a href=&#34;http://yasoob.me&#34;&gt;Muhammad Yasoob Ullah Khalid&lt;/a&gt;. I am an &lt;a href=&#34;http://book.pythontips.com&#34;&gt;author&lt;/a&gt;, &lt;a href=&#34;http://pythontips.com&#34;&gt;blogger&lt;/a&gt;, international speaker and &lt;a href=&#34;http://github.com/yasoob&#34;&gt;Open Source fanatic&lt;/a&gt;. I made this website to document my progress in &lt;a href=&#34;https://developers.google.com/open-source/gci/?hl=en&#34;&gt;Google Code-in&lt;/a&gt;. I am working with &lt;a href=&#34;http://fossasia.org&#34;&gt;fossasia&lt;/a&gt; which comprises of a group of really awesome people.&lt;/p&gt;
-
-&lt;p&gt;Below is a partial list of the projects which I have currently completed during this GCI.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://yasoob.me/learn-git&#34;&gt;Learn Git&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://flasklogin.herokuapp.com/&#34;&gt;Flask login app&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://yasoob.me/geo_cord&#34;&gt;What&amp;rsquo;s Your Geolocation?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/yasoob/go-reddit&#34;&gt;Go-Reddit&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I have also contributed a lot of code and tests to the following repositories:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/loklak/python-loklak-api/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;python-loklak-api&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://github.com/loklak/loklak_server/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;loklak_server&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/gci15.fossasia.org/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;GCI Fossasia&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/open-event-orga-server&#34;&gt;Open Event Orga Server&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Making a Flask app with login functionality</title>
       <link>http://yasoob.github.io/gci/post/flask%20login%20app/</link>
       <pubDate>Tue, 22 Dec 2015 04:42:46 +0500</pubDate>
@@ -507,6 +479,34 @@ session[&#39;user_name&#39;] = user.name
 &lt;h2 id=&#34;conclusion:6d79db0366d5708a8361ae566681a4cf&#34;&gt;Conclusion:&lt;/h2&gt;
 
 &lt;p&gt;The key here is the &lt;code&gt;session&lt;/code&gt; dict. We use it to check whether the user is logged-in or not. I hope you enjoyed this short intro. You can always checkout the whole source-code of the &lt;code&gt;app.py&lt;/code&gt; file from the &lt;a href=&#34;https://github.com/yasoob/flask-login/blob/master/app.py&#34;&gt;project&lt;/a&gt; to get a better understanding.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>http://yasoob.github.io/gci/about/</link>
+      <pubDate>Mon, 21 Dec 2015 01:00:52 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/about/</guid>
+      <description>&lt;p&gt;I am &lt;a href=&#34;http://yasoob.me&#34;&gt;Muhammad Yasoob Ullah Khalid&lt;/a&gt;. I am an &lt;a href=&#34;http://book.pythontips.com&#34;&gt;author&lt;/a&gt;, &lt;a href=&#34;http://pythontips.com&#34;&gt;blogger&lt;/a&gt;, international speaker and &lt;a href=&#34;http://github.com/yasoob&#34;&gt;Open Source fanatic&lt;/a&gt;. I made this website to document my progress in &lt;a href=&#34;https://developers.google.com/open-source/gci/?hl=en&#34;&gt;Google Code-in&lt;/a&gt;. I am working with &lt;a href=&#34;http://fossasia.org&#34;&gt;fossasia&lt;/a&gt; which comprises of a group of really awesome people.&lt;/p&gt;
+
+&lt;p&gt;Below is a partial list of the projects which I have currently completed during this GCI.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://yasoob.me/learn-git&#34;&gt;Learn Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://flasklogin.herokuapp.com/&#34;&gt;Flask login app&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://yasoob.me/geo_cord&#34;&gt;What&amp;rsquo;s Your Geolocation?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yasoob/go-reddit&#34;&gt;Go-Reddit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have also contributed a lot of code and tests to the following repositories:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/loklak/python-loklak-api/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;python-loklak-api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://github.com/loklak/loklak_server/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;loklak_server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/gci15.fossasia.org/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;GCI Fossasia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/open-event-orga-server&#34;&gt;Open Event Orga Server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
