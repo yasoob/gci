@@ -103,7 +103,7 @@ $ cd new_site
 
 &lt;p&gt;First of all we need to edit the &lt;code&gt;config.toml&lt;/code&gt; file. Add the following information in it:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;baseurl = &amp;quot;http://yasoob.me/&amp;quot;
+&lt;pre&gt;&lt;code&gt;baseurl = &amp;quot;http://yasoob.github.io/&amp;quot;
 languageCode = &amp;quot;en-us&amp;quot;
 title = &amp;quot;Yasoob Khalid&amp;quot;
 author = &amp;quot;yasoob&amp;quot;
@@ -144,7 +144,7 @@ $ git push -u origin master
 
 &lt;p&gt;&lt;strong&gt;10.Test it out!&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Now you can browse to the newly published blog. You can find it at the following url &lt;code&gt;&amp;lt;github_username&amp;gt;.github.io/hugo_blog&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now you can browse to the newly published blog. You can find it at the following url &lt;code&gt;&amp;lt;github_username&amp;gt;.github.io/&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Cheers!&lt;/p&gt;
 </description>
