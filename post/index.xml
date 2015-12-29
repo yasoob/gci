@@ -6,8 +6,138 @@
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 02:38:37 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 02:41:53 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Virtual Environment</title>
+      <link>http://yasoob.github.io/gci/post/virtualenv/</link>
+      <pubDate>Wed, 30 Dec 2015 02:41:53 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/virtualenv/</guid>
+      <description>
+
+&lt;p&gt;Have you ever heard of &lt;code&gt;virtualenv&lt;/code&gt;? If you are a beginner,
+then you might not have heard about it but if you are a
+seasoned programmer then it may well be a vital part of your toolset.&lt;/p&gt;
+
+&lt;p&gt;So what is &lt;code&gt;virtualenv&lt;/code&gt;? &lt;code&gt;Virtualenv&lt;/code&gt; is a tool which allows us to
+make isolated python environments. Imagine you have an application that
+needs version 2 of a library, but another application requires
+version 3. How can you use and develop both these applications?&lt;/p&gt;
+
+&lt;p&gt;If you install everything into &lt;code&gt;/usr/lib/python2.7/site-packages&lt;/code&gt; (or
+whatever your platform&amp;rsquo;s standard location is), it&amp;rsquo;s easy to end up in a
+situation where you unintentionally upgrade a package.&lt;/p&gt;
+
+&lt;p&gt;In another case, imagine that you have an application which is fully
+developed and you do not want to make any change to the libraries it is
+using but at the same time you start developing another application
+which requires the updated versions of those libraries.&lt;/p&gt;
+
+&lt;p&gt;What will you do? Use &lt;code&gt;virtualenv&lt;/code&gt;! It creates isolated environments
+for your python application and allows you to install Python libraries
+in that isolated environment instead of installing them globally.&lt;/p&gt;
+
+&lt;p&gt;To install it, just type this command in the shell:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The most important commands are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$ virtualenv myproject&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ source bin/activate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This first one makes an isolated virtualenv environment in the
+&lt;code&gt;myproject&lt;/code&gt; folder and the second command activates that isolated
+environment.&lt;/p&gt;
+
+&lt;p&gt;While creating the virtualenv you have to make a decision. Do you
+want this virtualenv to use packages from your system &lt;code&gt;site-packages&lt;/code&gt;
+or install them in the virtualenv’s site-packages? By default,
+virtualenv will not give access to the global &lt;code&gt;site-packages&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want your &lt;code&gt;virtualenv&lt;/code&gt; to have access to your systems
+&lt;code&gt;site-packages&lt;/code&gt;, use the &lt;code&gt;--system-site-packages&lt;/code&gt; switch when creating
+your virtualenv like this:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ virtualenv --system-site-packages mycoolproject
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can turn off the &lt;code&gt;env&lt;/code&gt; by typing:&lt;/p&gt;
+
+&lt;p&gt;.. code:: python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running &lt;code&gt;python&lt;/code&gt; after deactivating will use your system installation
+of Python again.&lt;/p&gt;
+
+&lt;h2 id=&#34;virtualenvwrapper:ae2a870b41789da9c4f71e0ac6bfd0c3&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
+
+&lt;p&gt;Virtualenv wrapper is a set of extensions for virtualenv. These extensions make your life easier and improve your deveopment workflow. The features of virtualenvwrapper are (taken from project page):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Features&lt;/li&gt;
+&lt;li&gt;Organizes all of your virtual environments in one place.&lt;/li&gt;
+&lt;li&gt;Wrappers for managing your virtual environments (create, delete, copy).&lt;/li&gt;
+&lt;li&gt;Use a single command to switch between environments.&lt;/li&gt;
+&lt;li&gt;Tab completion for commands that take a virtual environment as argument.&lt;/li&gt;
+&lt;li&gt;User-configurable hooks for all operations (see Per-User Customization).&lt;/li&gt;
+&lt;li&gt;Plugin system for more creating sharable extensions (see Extending Virtualenvwrapper).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Most importantly virtualenvwrapper stores all your virtual environments in one place and allows you to shift from one environment to another quite easily. You can install it by running the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs
+$ mkdir -p $WORKON_HOME
+$ source /usr/local/bin/virtualenvwrapper.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can create your first environment by running:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv venv1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can see that it installed the virtual environment in the &lt;code&gt;~/Envs&lt;/code&gt; directory by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ ls $WORKON_HOME
+venv1 hook.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can install the software in the usual way by using pip:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ pip install flask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can create multiple environments and shift from one to another quite easily:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ mkvirtualenv venv2
+(venv2)$ workon venv1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can even copy virtual environments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(venv1)$ cpvirtualenv venv1 dest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command creates a new virtual environment with the name of &lt;code&gt;dest&lt;/code&gt;. Lastly you can deactivate a virtual environment by running:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are &lt;strong&gt;a lot&lt;/strong&gt; of other cool virtualenwrapper commands which I did not list here. You can check them out over &lt;a href=&#34;https://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html&#34;&gt;here&lt;/a&gt;. I hope you liked this short intro to virtualenv and virtualenvwrapper.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Installing Wine 1.8 on Ubuntu 14.04</title>
