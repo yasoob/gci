@@ -10,14 +10,12 @@
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>wine1.8 ubuntu</title>
+      <title>Installing Wine 1.8 on Ubuntu 14.04</title>
       <link>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</link>
       <pubDate>Wed, 30 Dec 2015 02:38:37 +0500</pubDate>
       
       <guid>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</guid>
       <description>
-
-&lt;h1 id=&#34;installing-wine-1-8-on-ubuntu-14-04:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine 1.8 on Ubuntu 14.04&lt;/h1&gt;
 
 &lt;p&gt;Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.&lt;/p&gt;
 
