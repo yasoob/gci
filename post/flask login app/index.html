@@ -90,7 +90,7 @@
 <li>logout</li>
 </ul>
 
-<p>###<code>home</code>:</p>
+<p><strong><code>home</code>:</strong></p>
 
 <p>This route simply redirects to the <code>login</code> view if the user is not logged in. We check that the user is logged in or not by running the following code:</p>
 
@@ -104,7 +104,7 @@
 
 <p><strong>401</strong> stands for un-authorized. This status code tells the user that he is not authorized to view this page.</p>
 
-<p>###<code>login</code>:</p>
+<p><strong><code>login</code>:</strong></p>
 
 <p>In this view we create an instance of the <code>LoginForm</code> and present it to the user if he is not logged in. If the user submits the form correctly and a user with the email specified exists in our server, we redirect the user to the <code>home</code> view. We check that the user_email is in the database and the password is correct by running the following code:</p>
 
@@ -120,13 +120,13 @@ session['user_name'] = user.name
 
 <p>If it is incorrect then we present the errors to the user and ask him/her to try again.</p>
 
-<p>###<code>signup</code>:</p>
+<p><strong><code>signup</code>:</strong></p>
 
 <p>This view is kind-of similar to the login view. In this view we create an instance of the <code>SignupForm</code> form and present it to the user. If the form is validated on submit then we create a user in our database with the supplied information.</p>
 
 <p>Finally, we redirect the user to the home view.</p>
 
-<p>###<code>logout</code>:</p>
+<p><strong><code>logout</code>:</strong></p>
 
 <p>This view simply pops the <code>user_name</code> and <code>user_email</code> values from the <code>session</code> dict.</p>
 
