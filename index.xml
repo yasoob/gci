@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yasoob Khalid</title>
+    <link>http://yasoob.me/</link>
+    <description>Recent content on Yasoob Khalid</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
+    <atom:link href="http://yasoob.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started with Hugo on Ubuntu 14.04</title>
+      <link>http://yasoob.me/post/installing%20hugo/</link>
+      <pubDate>Wed, 30 Dec 2015 01:11:10 +0500</pubDate>
+      
+      <guid>http://yasoob.me/post/installing%20hugo/</guid>
+      <description>&lt;p&gt;Hugo is a static website generator which is written using golang. It is extremely fast and lightweight. You can use it to create a blog or full blown away corporate website. In this post I will show you how you can deploy a blog made with Hugo to GitHub pages. Let&amp;rsquo;s start!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.Download the binary&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The first step is to download the Hugo binary for your platform from GitHub. I will be downloading binaries for 64bit linux as that is what I am using right now. Your system might be 32 bit so kindly keep that in mind. The download link is &lt;a href=&#34;https://github.com/spf13/hugo/releases/download/v0.15/hugo_0.15_linux_amd64.tar.gz&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.Extract it in &lt;code&gt;dev&lt;/code&gt; folder&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I like to save all of my development related stuff in a separate &lt;code&gt;dev&lt;/code&gt; folder in my home. You can easily create this dev folder using the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir ~/dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go ahead and extract the hugo files in this folder. If you are done with this step then move on.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.Setting up an alias&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time to setup and alias for hugo. Currently we can call hugo from any folder by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ~/dev/hugo_0.15_linux_amd64/hugo_0.15_linux_amd64
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see the above command is not very user friendly. We are going to change it. Open up your &lt;code&gt;.bashrc&lt;/code&gt; file using your editor of choice:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nano ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add the following text at the end of this file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alias hugo=&#39;~/dev/hugo_0.15_linux_amd64/hugo_0.15_linux_amd64&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After saving the file type the following command in your terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This updates your terminal session according to your &lt;code&gt;.bashrc&lt;/code&gt; file so that you don&amp;rsquo;t have to restart the terminal for the changes to take effect.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.Actually creating the new blog&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now hop over to your Desktop and create a new site/blog using the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ~/Desktop
+$ hugo new site new_site
+$ cd new_site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command creates a new website in a &lt;code&gt;new_site&lt;/code&gt; folder in your Desktop and &lt;code&gt;cd&lt;/code&gt;s you into that folder. Now it&amp;rsquo;s time to create a new page for our website.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5.Creating &lt;code&gt;about.md&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Type the following command in your terminal to create a new &lt;code&gt;about.md&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can edit the file using your editor of choice. The above file will be created inside the &lt;code&gt;content&lt;/code&gt; folder. Just add valid markdown after the &lt;code&gt;+++&lt;/code&gt; in the &lt;code&gt;about.md&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6.Create a new post&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A blog is not complete with a blogpost. You can easily create one by typing the following command in your terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now you can edit the post in your editor of choice. The post will be created in the &lt;code&gt;content -&amp;gt; post&lt;/code&gt; folder. After you have edited the file, save it and continue with the next step.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7.Getting the themes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Currently we don&amp;rsquo;t have any fancy themes. We can change that by cloning the &lt;code&gt;themes&lt;/code&gt; repo. It can easily be done by keying in the following command in your terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone --depth 1 --recursive https://github.com/spf13/hugoThemes.git themes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we are ready to actually test our blog.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8.Building the blog&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hugo server --theme=hyde --buildDrafts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;9.Setup a new repo on GitHub&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Make a git repository in the current folder and commit all the changes. You can easily do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git init .
+$ git add .
+$ git commit -m &amp;quot;created my awesome hugo blog&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now goto GitHub and create a new repo. We will name it &lt;code&gt;hugo_blog&lt;/code&gt; for the sake of this tutorial. We will add a remote in our repository.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A new file is now created in content/ with the following contents:&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>http://yasoob.me/about/</link>
+      <pubDate>Wed, 30 Dec 2015 01:00:52 +0500</pubDate>
+      
+      <guid>http://yasoob.me/about/</guid>
+      <description>&lt;p&gt;I am &lt;a href=&#34;http://yasoob.me&#34;&gt;Muhammad Yasoob Ullah Khalid&lt;/a&gt;. I am an &lt;a href=&#34;http://book.pythontips.com&#34;&gt;author&lt;/a&gt;, &lt;a href=&#34;http://pythontips.com&#34;&gt;blogger&lt;/a&gt;, international speaker and &lt;a href=&#34;http://github.com/yasoob&#34;&gt;Open Source fanatic&lt;/a&gt;. I made this website to document my progress in &lt;a href=&#34;https://developers.google.com/open-source/gci/?hl=en&#34;&gt;Google Code-in&lt;/a&gt;. I am working with &lt;a href=&#34;http://fossasia.org&#34;&gt;fossasia&lt;/a&gt; which comprises of a group of really awesome people.&lt;/p&gt;
+
+&lt;p&gt;Below is a partial list of the projects which I have currently completed during this GCI.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://yasoob.me/learn-git&#34;&gt;Learn Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://flasklogin.herokuapp.com/&#34;&gt;Flask login app&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://yasoob.me/geo_cord&#34;&gt;What&amp;rsquo;s Your Geolocation?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/yasoob/go-reddit&#34;&gt;Go-Reddit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have also contributed a lot of code and tests to the following repositories:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/loklak/python-loklak-api/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;python-loklak-api&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://github.com/loklak/loklak_server/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;loklak_server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/gci15.fossasia.org/pulls?utf8=%E2%9C%93&amp;amp;q=is%3Apr+author%3Ayasoob+&#34;&gt;GCI Fossasia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/fossasia/open-event-orga-server&#34;&gt;Open Event Orga Server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

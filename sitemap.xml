@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://yasoob.me/</loc>
+    <lastmod>2015-12-30T01:11:10+05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yasoob.me/post/installing%20hugo/</loc>
+    <lastmod>2015-12-30T01:11:10+05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yasoob.me/about/</loc>
+    <lastmod>2015-12-30T01:00:52+05:00</lastmod>
+  </url>
+  
+</urlset>
