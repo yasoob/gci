@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Yasoob Khalid</title>
-    <link>http://yasoob.me/gci/</link>
+    <link>http://yasoob.github.io/gci/</link>
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
-    <atom:link href="http://yasoob.me/gci/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>
-      <link>http://yasoob.me/gci/post/installing%20hugo/</link>
+      <link>http://yasoob.github.io/gci/post/installing%20hugo/</link>
       <pubDate>Wed, 30 Dec 2015 01:11:10 +0500</pubDate>
       
-      <guid>http://yasoob.me/gci/post/installing%20hugo/</guid>
+      <guid>http://yasoob.github.io/gci/post/installing%20hugo/</guid>
       <description>&lt;p&gt;Hugo is a static website generator which is written using golang. It is extremely fast and lightweight. You can use it to create a blog or full blown away corporate website. In this post I will show you how you can deploy a blog made with Hugo to GitHub pages. Let&amp;rsquo;s start!&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1.Download the binary&lt;/strong&gt;&lt;/p&gt;
@@ -136,11 +136,10 @@ $ git add .
 $ git commit -m &amp;quot;created my awesome hugo blog&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now goto GitHub and create a new repo. We will name it &lt;code&gt;hugo_blog&lt;/code&gt; for the sake of this tutorial. After that we will add a remote in our repository.&lt;/p&gt;
+&lt;p&gt;Now goto GitHub and create a new repo. We will name it &lt;code&gt;yasoob.github.io&lt;/code&gt; for the sake of this tutorial. After that we will add a remote in our repository.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git checkout -b gh-pages
-$ git remote add origin git@github.com:yasoob/hugo_blog.git
-$ git push -u origin gh-pages
+&lt;pre&gt;&lt;code&gt;$ git remote add origin git@github.com:yasoob/yasoob.github.io.git
+$ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;10.Test it out!&lt;/strong&gt;&lt;/p&gt;
@@ -153,10 +152,10 @@ $ git push -u origin gh-pages
     
     <item>
       <title>About Me</title>
-      <link>http://yasoob.me/gci/about/</link>
+      <link>http://yasoob.github.io/gci/about/</link>
       <pubDate>Wed, 30 Dec 2015 01:00:52 +0500</pubDate>
       
-      <guid>http://yasoob.me/gci/about/</guid>
+      <guid>http://yasoob.github.io/gci/about/</guid>
       <description>&lt;p&gt;I am &lt;a href=&#34;http://yasoob.me&#34;&gt;Muhammad Yasoob Ullah Khalid&lt;/a&gt;. I am an &lt;a href=&#34;http://book.pythontips.com&#34;&gt;author&lt;/a&gt;, &lt;a href=&#34;http://pythontips.com&#34;&gt;blogger&lt;/a&gt;, international speaker and &lt;a href=&#34;http://github.com/yasoob&#34;&gt;Open Source fanatic&lt;/a&gt;. I made this website to document my progress in &lt;a href=&#34;https://developers.google.com/open-source/gci/?hl=en&#34;&gt;Google Code-in&lt;/a&gt;. I am working with &lt;a href=&#34;http://fossasia.org&#34;&gt;fossasia&lt;/a&gt; which comprises of a group of really awesome people.&lt;/p&gt;
 
 &lt;p&gt;Below is a partial list of the projects which I have currently completed during this GCI.&lt;/p&gt;
