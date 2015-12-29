@@ -6,8 +6,50 @@
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 01:11:10 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 03:34:37 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>An Intro to Kivy</title>
+      <link>http://yasoob.github.io/gci/post/kivy%20intro/</link>
+      <pubDate>Wed, 30 Dec 2015 03:34:37 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/kivy%20intro/</guid>
+      <description>&lt;p&gt;Kivy is a fantastic application framework which allows to to make cross-platform GUI applications easily. You can even make Android and IOS applications using kivy. The &lt;a href=&#34;http://kivy.org/#home&#34;&gt;official website&lt;/a&gt; of kivy sells it as &amp;ldquo;Open source Python library for rapid development of applications that make use of innovative user interfaces, such as multi-touch apps.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;I have used kivy once before and I really fell in love with it. The &lt;a href=&#34;http://kivy.org/docs/gettingstarted/rules.html&#34;&gt;KV&lt;/a&gt; language gives you immense control over the GUI part of application development. You can use kivy on any OS, let it be Windows, Linux or Mac OSX. The applications created with Kivy can run on Linux, Windows, OS X, Android and iOS.&lt;/p&gt;
+
+&lt;p&gt;Want to know about one more great thing about kivy? It is 100% free to use even in professional business applications. It is distributed under the MIT license which means that you don&amp;rsquo;t have to pay a dime to use it. Some of it&amp;rsquo;s CPU intensive parts are written in C instead of pure Python. This gives you the best of both worlds, the power of C and the ease of use of Python.&lt;/p&gt;
+
+&lt;p&gt;Want to see the consiseness of Kivy? The following code constitutes a fully working kivy application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from kivy.app import App
+from kivy.uix.button import Button
+
+class TestApp(App):
+    def build(self):
+        return Button(text=&#39;Hello World&#39;)
+
+TestApp().run()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is a sample Kivy paint app from the &lt;a href=&#34;http://kivy.org/docs/tutorials/firstwidget.html&#34;&gt;official tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://kivy.org/docs/_images/guide-4.jpg&#34; alt=&#34;Kivy Paint app&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the future I will love to create a Chemistry application using Kivy. The application would be similar to ChemSketch. I will use Kivy because it provides easy APIs to use Canvas and draw shapes. As that would be the main part of my app, I would love to give kivy a shot!&lt;/p&gt;
+
+&lt;p&gt;I hope that you liked this short intro to kivy.&lt;/p&gt;
+
+&lt;p&gt;Here are some useful links for your future endeavours:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://kivy.org/#home&#34;&gt;Kivy Homepage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kivy.org/docs/gettingstarted/intro.html&#34;&gt;Kivy Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kivy.org/docs/tutorials/pong.html&#34;&gt;Pong Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>
