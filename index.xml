@@ -6,22 +6,8 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 05:00:23 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 03:34:37 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Setting up loklak Server on Linux</title>
-      <link>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</link>
-      <pubDate>Wed, 30 Dec 2015 05:00:23 +0500</pubDate>
-      
-      <guid>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</guid>
-      <description>&lt;p&gt;This is a simple asciinema cast which shows you how you can setup &lt;a href=&#34;https://github.com/loklak/loklak_server&#34;&gt;loklak server&lt;/a&gt; on Linux (in our case Ubuntu).&lt;/p&gt;
-
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-
-&lt;script type=&#34;text/javascript&#34; src=&#34;https://asciinema.org/a/32450.js&#34; id=&#34;asciicast-32450&#34; async&gt;&lt;/script&gt;
-</description>
-    </item>
     
     <item>
       <title>An Intro to Kivy</title>
@@ -379,6 +365,20 @@ venv1 hook.log
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;There are &lt;strong&gt;a lot&lt;/strong&gt; of other cool virtualenwrapper commands which I did not list here. You can check them out over &lt;a href=&#34;https://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html&#34;&gt;here&lt;/a&gt;. I hope you liked this short intro to virtualenv and virtualenvwrapper.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Setting up loklak Server on Linux</title>
+      <link>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</link>
+      <pubDate>Fri, 25 Dec 2015 05:00:23 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</guid>
+      <description>&lt;p&gt;This is a simple asciinema cast which shows you how you can setup &lt;a href=&#34;https://github.com/loklak/loklak_server&#34;&gt;loklak server&lt;/a&gt; on Linux (in our case Ubuntu).&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://asciinema.org/a/32450.js&#34; id=&#34;asciicast-32450&#34; async&gt;&lt;/script&gt;
 </description>
     </item>
     

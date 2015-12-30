@@ -3,13 +3,8 @@
   
   <url>
     <loc>http://yasoob.github.io/gci/</loc>
-    <lastmod>2015-12-30T05:00:23+05:00</lastmod>
+    <lastmod>2015-12-30T03:34:37+05:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</loc>
-    <lastmod>2015-12-30T05:00:23+05:00</lastmod>
   </url>
   
   <url>
@@ -30,6 +25,11 @@
   <url>
     <loc>http://yasoob.github.io/gci/post/virtualenv/</loc>
     <lastmod>2015-12-26T02:41:53+05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</loc>
+    <lastmod>2015-12-25T05:00:23+05:00</lastmod>
   </url>
   
   <url>
