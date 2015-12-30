@@ -6,8 +6,22 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 03:34:37 +0500</lastBuildDate>
+    <lastBuildDate>Wed, 30 Dec 2015 05:00:23 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Setting up loklak Server on Linux</title>
+      <link>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</link>
+      <pubDate>Wed, 30 Dec 2015 05:00:23 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</guid>
+      <description>&lt;p&gt;This is a simple asciinema cast which shows you how you can setup &lt;a href=&#34;https://github.com/loklak/loklak_server&#34;&gt;loklak server&lt;/a&gt; on Linux (in our case Ubuntu).&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://asciinema.org/a/32450&#34;&gt;&lt;img src=&#34;https://asciinema.org/a/32450.png&#34; alt=&#34;asciicast&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>An Intro to Kivy</title>
