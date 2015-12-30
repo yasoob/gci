@@ -6,8 +6,155 @@
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2015 03:34:37 +0500</lastBuildDate>
+    <lastBuildDate>Thu, 31 Dec 2015 01:20:38 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Implementing Email Sending Functionality in a Django App</title>
+      <link>http://yasoob.github.io/gci/post/django%20email/</link>
+      <pubDate>Thu, 31 Dec 2015 01:20:38 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/django%20email/</guid>
+      <description>&lt;p&gt;Hi there folks! Recently I was doing a task for fossasia which required me to make a Django web app which allowed users to submit their email addresses and receive a welcome email in return. I was able to complete the project in a couple of hours. Most of the time was spent in making the UI look good. I am going to show you how you can easily make a similar app.&lt;/p&gt;
+
+&lt;p&gt;For the sake of this tutorial we will be using Gmail.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.Setup the project&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;First of all we need to start a django project. We can start one on our Desktop by typing the following command in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ django-admin startproject gci_email
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s &lt;code&gt;cd&lt;/code&gt; into the newly created project and move on:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd gci_email
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2.Creating a new app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we need to make a new app. You can do that by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py startapp send_email
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command creates a &lt;code&gt;send_email&lt;/code&gt; directory inside our project with a couple of files in it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.Modify the project settings&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s just quickly go ahead and modify the project settings a little bit. In this step we will add our app and all our email sending related info to the &lt;code&gt;settings.py&lt;/code&gt; file. Open the &lt;code&gt;settings.py&lt;/code&gt; file which is available in the &lt;code&gt;gci_email&lt;/code&gt; folder and add the following content to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;EMAIL_USE_TLS = True
+EMAIL_HOST = &#39;smtp.gmail.com&#39;
+EMAIL_PORT = 587
+EMAIL_HOST_USER = &#39;Your gmail email&#39;
+EMAIL_HOST_PASSWORD = &#39;Your gmail password&#39;
+DEFAULT_FROM_EMAIL = &#39;Your name&#39;
+DEFAULT_TO_EMAIL = &#39;Your email&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the &lt;code&gt;INSTALLED_APPS&lt;/code&gt; section of your &lt;code&gt;settings.py&lt;/code&gt; file you need to add the following entry to the &lt;code&gt;INSTALLED_APPS&lt;/code&gt; list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;send_email.apps.SendEmailConfig&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now the settings.py file should contain the following modified &lt;code&gt;INSTALLED_APPS&lt;/code&gt; list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INSTALLED_APPS = [
+    &#39;send_email.apps.SendEmailConfig&#39;,
+    &#39;django.contrib.admin&#39;,
+    &#39;django.contrib.auth&#39;,
+    &#39;django.contrib.contenttypes&#39;,
+    &#39;django.contrib.sessions&#39;,
+    &#39;django.contrib.messages&#39;,
+    &#39;django.contrib.staticfiles&#39;,
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s add the static files related variables to our &lt;code&gt;settings.py&lt;/code&gt; file as well:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = &#39;staticfiles&#39;
+STATIC_URL = &#39;/static/&#39;
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, &#39;static&#39;),
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4.Creating urls&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Modify the &lt;code&gt;urls.py&lt;/code&gt; file in &lt;code&gt;gci_email&lt;/code&gt; folder to look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r&#39;^admin/&#39;, admin.site.urls),
+    url(r&#39;^&#39;, include(&#39;send_email.urls&#39;)),
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now create a &lt;code&gt;urls.py&lt;/code&gt; file in &lt;code&gt;send_email&lt;/code&gt; folder as well and add the following content to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from django.conf.urls import url
+
+from . import views
+
+urlpatterns = [
+    url(r&#39;^$&#39;, views.index, name=&#39;index&#39;),
+    url(r&#39;^success&#39;, views.success, name=&#39;success&#39;),
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;5.Adding Views&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time to edit the views. Go to the &lt;code&gt;views.py&lt;/code&gt; file in &lt;code&gt;send_email&lt;/code&gt; directory and modify it to look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from django.shortcuts import render
+from django.http import HttpResponse
+import django
+from django.conf import settings
+from django.core.mail import send_mail
+
+
+def index(request):
+    return render(request, &#39;index.html&#39;)
+
+
+def success(request):
+    email = request.POST.get(&#39;email&#39;, &#39;&#39;)
+    data = &amp;quot;&amp;quot;&amp;quot;
+Hello there!
+
+I wanted to personally write an email in order to welcome you to our platform.\
+ We have worked day and night to ensure that you get the best service. I hope \
+that you will continue to use our service. We send out a newsletter once a \
+week. Make sure that you read it. It is usually very informative.
+
+Cheers!
+~ Yasoob
+    &amp;quot;&amp;quot;&amp;quot;
+    send_mail(&#39;Welcome!&#39;, data, &amp;quot;Yasoob&amp;quot;,
+              [email], fail_silently=False)
+    return render(request, &#39;success.html&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;6.Adding templates&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we need to create a &lt;code&gt;templates&lt;/code&gt; dir in the &lt;code&gt;send_email&lt;/code&gt; folder and create 2 files in it. Namely, &lt;code&gt;index.html&lt;/code&gt; and &lt;code&gt;success.html&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You need to create a form in the &lt;code&gt;index.html&lt;/code&gt; file with an input fild of name email. The &lt;code&gt;success.html&lt;/code&gt; file does not need any special content.&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s it! Now you can first create migrations, then apply them and finally run your project. Just key in the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cheers!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>An Intro to Kivy</title>
