@@ -61,6 +61,7 @@ TestApp().run()
 &lt;li&gt;&lt;a href=&#34;http://kivy.org/#home&#34;&gt;Kivy Homepage&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://kivy.org/docs/gettingstarted/intro.html&#34;&gt;Kivy Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://kivy.org/docs/tutorials/pong.html&#34;&gt;Pong Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kivy.org/#gallery&#34;&gt;Kivy App showcase&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
