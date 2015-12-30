@@ -374,7 +374,25 @@ venv1 hook.log
       <pubDate>Fri, 25 Dec 2015 05:00:23 +0500</pubDate>
       
       <guid>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</guid>
-      <description>&lt;p&gt;This is a simple asciinema cast which shows you how you can setup &lt;a href=&#34;https://github.com/loklak/loklak_server&#34;&gt;loklak server&lt;/a&gt; on Linux (in our case Ubuntu).&lt;/p&gt;
+      <description>&lt;p&gt;Setting up loklak_server is really easy. You just have to follow a couple of steps which are clearly mentioned in the official setup docs.&lt;/p&gt;
+
+&lt;p&gt;The steps are as follow:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$ git clone https://github.com/loklak/loklak_server.git&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ cd loklak_server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ ant&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ bin/start.sh&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ bin/stop.sh&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bellow are some screenshots which I took after successfully running it on my local Ubuntu machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/lok_lak running.png&#34; alt=&#34;lokal running&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/lok_lak running 1.png&#34; alt=&#34;lokal running&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a simple asciinema cast which shows you how you can setup &lt;a href=&#34;https://github.com/loklak/loklak_server&#34;&gt;loklak server&lt;/a&gt; on Linux (in our case Ubuntu).&lt;/p&gt;
 
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 
