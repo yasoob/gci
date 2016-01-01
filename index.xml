@@ -6,8 +6,261 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Dec 2015 01:20:38 +0500</lastBuildDate>
+    <lastBuildDate>Sat, 02 Jan 2016 03:30:06 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Soving the Kivy Pong Bug</title>
+      <link>http://yasoob.github.io/gci/post/kivy-pong-bug/</link>
+      <pubDate>Sat, 02 Jan 2016 03:30:06 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/kivy-pong-bug/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Hi guys!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Welcome back. The last task which I completed for fossasia involved making a &lt;a href=&#34;https://github.com/yasoob/kivy_pong&#34;&gt;Pong game&lt;/a&gt; using Kivy. I followed the &lt;a href=&#34;http://kivy.org/docs/tutorials/pong.html&#34;&gt;official tutorial&lt;/a&gt; and completed the game in half an hour. The interesting part of the task started after I was done with the creation of the game.&lt;/p&gt;
+
+&lt;p&gt;There was a bug in the game. Whenever you hit the pong_ball with the top or bottom side of the paddel, the pong_ball goes mad and starts flickering. There is some issue with the collision detection. Actually it is not a bug in Kivy but a bug in how the pong game is implemented.&lt;/p&gt;
+
+&lt;p&gt;First of all you need to install kivy. You can check out the &lt;a href=&#34;kivy.org/docs/installation/installation-linux.html&#34;&gt;official docs&lt;/a&gt; for installation. After that create a new directory where you will keep the code for this pong game:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ~/Desktop
+$ mkdir pong_game
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now also create two files in this directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch main.py pong.kv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now add the following content to the &lt;code&gt;main.py&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from kivy.app import App
+from kivy.uix.widget import Widget
+from kivy.vector import Vector
+from kivy.clock import Clock
+from kivy.properties import NumericProperty, ReferenceListProperty,\
+    ObjectProperty
+
+
+class PongPaddle(Widget):
+    score = NumericProperty(0)
+
+    def bounce_ball(self, ball):
+        if self.collide_widget(ball):
+            print &amp;quot;Rounded Time: &amp;quot;, round(time.time() - self.time_bounce)
+            vx, vy = ball.velocity
+            offset = (ball.center_y - self.center_y) / (self.height / 2)
+            bounced = Vector(-1 * vx, vy)
+            vel = bounced * 1.1
+            ball.velocity = vel.x, vel.y + offset
+
+
+class PongBall(Widget):
+    velocity_x = NumericProperty(0)
+    velocity_y = NumericProperty(0)
+    velocity = ReferenceListProperty(velocity_x, velocity_y)
+
+    def move(self):
+        self.pos = Vector(*self.velocity) + self.pos
+
+
+class PongGame(Widget):
+    ball = ObjectProperty(None)
+    player1 = ObjectProperty(None)
+    player2 = ObjectProperty(None)
+
+    def serve_ball(self, vel=(4, 0)):
+        self.ball.center = self.center
+        self.ball.velocity = vel
+
+    def update(self, dt):
+        self.ball.move()
+
+        # bounce of paddles
+        self.player1.bounce_ball(self.ball)
+        self.player2.bounce_ball(self.ball)
+
+        # bounce ball off bottom or top
+        if (self.ball.y &amp;lt; self.y) or (self.ball.top &amp;gt; self.top):
+            self.ball.velocity_y *= -1
+
+        # went of to a side to score point?
+        if self.ball.x &amp;lt; self.x:
+            self.player2.score += 1
+            self.serve_ball(vel=(4, 0))
+        if self.ball.x &amp;gt; self.width:
+            self.player1.score += 1
+            self.serve_ball(vel=(-4, 0))
+
+    def on_touch_move(self, touch):
+        if touch.x &amp;lt; self.width / 3:
+            self.player1.center_y = touch.y
+        if touch.x &amp;gt; self.width - self.width / 3:
+            self.player2.center_y = touch.y
+
+
+class PongApp(App):
+    def build(self):
+        game = PongGame()
+        game.serve_ball()
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        return game
+
+
+if __name__ == &#39;__main__&#39;:
+    PongApp().run()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add the following code to the &lt;code&gt;pong.kv&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#:kivy 1.0.9
+
+&amp;lt;PongBall&amp;gt;:
+    size: 50, 50 
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size          
+
+&amp;lt;PongPaddle&amp;gt;:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+&amp;lt;PongGame&amp;gt;:
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    
+    canvas:
+        Rectangle:
+            pos: self.center_x-5, 0
+            size: 10, self.height
+    
+    Label:
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+        
+    Label:
+        font_size: 70  
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+    
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+        
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+        
+    PongPaddle:
+        id: player_right
+        x: root.width-self.width
+        center_y: root.center_y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now try running the game:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python main.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now just think for a minute about how you will solve the bug. There are a couple of ways in which this bug can be solved. I personally took the shortest method. In my solution I checked whether the time difference between two successive collisions is more than 0s. If it is then the collision detection would react. Otherwise it will not do anything (i.e changing the direction of the ball).&lt;/p&gt;
+
+&lt;p&gt;You might be wondering that the time difference would always be greater than one then how does this solve the bug? Well, we are rounding the time difference. This means that if the difference is between 0-0.5, it rounds down to 0 and the calculated difference equates to 0. :)&lt;/p&gt;
+
+&lt;p&gt;Here is the modified &lt;code&gt;main.py&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from kivy.app import App
+from kivy.uix.widget import Widget
+from kivy.vector import Vector
+from kivy.clock import Clock
+from kivy.properties import NumericProperty, ReferenceListProperty,\
+    ObjectProperty
+import time
+
+
+class PongPaddle(Widget):
+    score = NumericProperty(0)
+    time_bounce = time.time()
+
+    def bounce_ball(self, ball):
+        if self.collide_widget(ball):
+            print &amp;quot;Rounded Time: &amp;quot;, round(time.time() - self.time_bounce)
+            if round(time.time() - self.time_bounce) &amp;gt; 0:
+                vx, vy = ball.velocity
+                offset = (ball.center_y - self.center_y) / (self.height / 2)
+                bounced = Vector(-1 * vx, vy)
+                vel = bounced * 1.1
+                ball.velocity = vel.x, vel.y + offset
+            self.time_bounce = time.time()
+
+
+class PongBall(Widget):
+    velocity_x = NumericProperty(0)
+    velocity_y = NumericProperty(0)
+    velocity = ReferenceListProperty(velocity_x, velocity_y)
+
+    def move(self):
+        self.pos = Vector(*self.velocity) + self.pos
+
+
+class PongGame(Widget):
+    ball = ObjectProperty(None)
+    player1 = ObjectProperty(None)
+    player2 = ObjectProperty(None)
+
+    def serve_ball(self, vel=(4, 0)):
+        self.ball.center = self.center
+        self.ball.velocity = vel
+
+    def update(self, dt):
+        self.ball.move()
+
+        # bounce of paddles
+        self.player1.bounce_ball(self.ball)
+        self.player2.bounce_ball(self.ball)
+
+        # bounce ball off bottom or top
+        if (self.ball.y &amp;lt; self.y) or (self.ball.top &amp;gt; self.top):
+            self.ball.velocity_y *= -1
+
+        # went of to a side to score point?
+        if self.ball.x &amp;lt; self.x:
+            self.player2.score += 1
+            self.serve_ball(vel=(4, 0))
+        if self.ball.x &amp;gt; self.width:
+            self.player1.score += 1
+            self.serve_ball(vel=(-4, 0))
+
+    def on_touch_move(self, touch):
+        if touch.x &amp;lt; self.width / 3:
+            self.player1.center_y = touch.y
+        if touch.x &amp;gt; self.width - self.width / 3:
+            self.player2.center_y = touch.y
+
+
+class PongApp(App):
+    def build(self):
+        game = PongGame()
+        game.serve_ball()
+        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        return game
+
+
+if __name__ == &#39;__main__&#39;:
+    PongApp().run()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I hope that you learned about a nice way to solve this notorious bug!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Implementing Email Sending Functionality in a Django App</title>
