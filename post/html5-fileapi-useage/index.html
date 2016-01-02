@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>HTML5 &amp; JS File API Useage - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">HTML5 &amp; JS File API Useage</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2016-01-02">January 02, 2016</time></span>
+			<section itemprop="entry-text">
+				<p>HTML5 provides us with an easy way to interface with the localfiles using the <a href="http://www.w3.org/TR/file-upload/">File API</a>. It can be used offline as well which means that we can generate thumbnail previews without uploading the file to the server! This is just one of the benefits of this API. I am going to give you a walk-through for how you can make a small Meta-data explorer app using the File API.</p>
+
+<p>Our app will have the following features:</p>
+
+<ul>
+<li>Allow uploading of more than 1 file</li>
+<li>Display name, file-type, size and last-modified date of the selected files</li>
+<li>Provide us with a <code>Drop Zone</code> where we can drop the files to upload them</li>
+</ul>
+
+<p><strong>1.Creating the directories and files</strong></p>
+
+<p>Let&rsquo;s start off by creating our basic directory layout and files:</p>
+
+<pre><code>$ cd ~/Desktop
+$ mkdir fileapi_example
+$ cd fileapi_example
+$ mkdir css js
+$ touch index.html js/main.js css/main.css
+</code></pre>
+
+<p>The above commands will generate the following directory layout:</p>
+
+<pre><code>.
+├── css
+│   └── main.css
+├── index.html
+└── js
+    └── main.js
+</code></pre>
+
+<p>There is just one thing missing over here. For the drop zone functionality we will be using <a href="http://filedropjs.org/">filedropjs</a>. You need to download it and place it in the <code>js</code> folder:</p>
+
+<pre><code>$ cd ~/Desktop/fileapi_example/js
+$ wget https://raw.github.com/ProgerXP/FileDrop/master/filedrop-min.js
+</code></pre>
+
+<p>Now it&rsquo;s time to add some basic content to the files</p>
+
+<p><strong>2.Adding Content to <code>index.html</code></strong></p>
+
+<p>Just put the following code in <code>index.html</code> files and let me explain it a bit:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;File Metadata!&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/main.css&quot;&gt;
+  
+&lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=&quot;selection&quot;&gt;
+      &lt;fieldset id=&quot;zone&quot;&gt;
+        &lt;legend&gt;Drop a file inside...&lt;/legend&gt;
+        &lt;p&gt;Or click here to &lt;em&gt;Browse&lt;/em&gt;...&lt;/p&gt;
+      &lt;/fieldset&gt;
+      &lt;output id=&quot;list&quot;&gt;
+        &lt;h4&gt;Information&lt;/h4&gt;
+        &lt;ul class=&quot;main&quot;&gt;No File selected&lt;/ul&gt;
+      &lt;/output&gt;
+    &lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/filedrop-min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;js/main.js&quot; /&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>There is nothing super-fancy here. The <code>&lt;fieldset&gt;</code> tag is taken from the <em>filedrop</em> examples. The <code>&lt;output&gt;</code> tag will show the metadata info about our files. The main magic happens in the <code>main.js</code> file!</p>
+
+<p><strong>3.Updating <code>main.css</code> file</strong></p>
+
+<p>Add the following content to <code>main.css</code> file. This is just basic css to make out app look pretty:</p>
+
+<pre><code>body{
+	background: repeat-x left top url(&quot;data:image/gif;base64,R0lGODlhNAALAIAAABBQdcHm+SwAAAAANAALAAACK4SPqWvhD6MMrNo2s7xc6f90IgZqo1h+Z5ea69VmLxxvc1Xb95JHO9ODWAoAOw==&quot;) #f2f2f2;
+}
+.selection{
+	width: 400px;
+	margin: 0 auto;
+	margin-top: 6em;
+	text-align: center;
+}
+h4{
+	margin-bottom: 0;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border: 1px dotted black;
+    border-bottom: none;
+    background-color: #B7B3B3;
+    color: white;
+}
+ul.main{
+	text-align: left;
+    margin-top: 0px;
+    padding: 30px;
+    background-color: white;
+    list-style: none;
+    padding-left: 50px;
+    border: 1px dotted black;
+    border-style: dashed;
+}
+ul.item{
+	list-style: none;
+	margin-bottom: 30px;
+	padding-left: 0px;
+}
+ul.item:last-child{
+	margin-bottom: 0px;
+}
+/***
+  Styles below are only required if you're using &lt;iframe&gt; fallback in
+  addition to HTML5 drag &amp; drop (only working in Firefox/Chrome/Opera 15+).
+ ***/
+
+/* Essential FileDrop zone element configuration: */
+.fd-zone {
+  position: relative;
+  overflow: hidden;
+  /* The following are not required but create a pretty box: */
+  width: 15em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Hides &lt;input type=&quot;file&quot;&gt; while simulating &quot;Browse&quot; button: */
+.fd-file {
+  opacity: 0;
+  font-size: 118px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  filter: alpha(opacity=0);
+  font-family: sans-serif;
+}
+
+/* Provides visible feedback when user drags a file over the drop zone: */
+.fd-zone.over { border-color: maroon; background: #eee; }
+html, body {
+	height: 100%;
+	max-width: 100%;
+	width: 100%;
+	margin: 0;
+}
+.selection {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: 0px; 
+}
+.selection:after {
+  content: &quot;&quot;;
+  display: block;
+}
+footer, .selection:after {
+  height: 30px; 
+}
+footer {
+  background: #105075;
+  padding-top: 1px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  color: white;
+  font-weight: bold;
+}
+footer a{
+	color: #B5CFDE;
+	transition: all .5s;
+}
+footer a:hover{
+	color: white;
+}
+</code></pre>
+
+<p>That&rsquo;s it for the styling. Now let&rsquo;s move on to the main <code>main.js</code> file.</p>
+
+<p><strong>4.Modifying <code>main.js</code> file</strong></p>
+
+<p>We can get metadata info about a file in js by querying the file handler after getting a handle to a file. For instance:</p>
+
+<pre><code>//Name
+f.name
+
+//Size
+f.size
+
+//Type
+f.type
+
+//Last Modified Date
+f.lastModifiedDate
+</code></pre>
+
+<p>Add the following content to our <code>main.js</code> file:</p>
+
+<pre><code>var options = {}
+var zone = new FileDrop('zone', options)
+
+// Do something when a user chooses or drops a file:
+zone.event('send', function (files) {
+  // FileList might contain multiple items.
+  // files is a FileList of File objects. List some properties.
+  var output = [];
+  for (var i = 0, f; f = files[i]; i++) {
+  	output.push('&lt;ul class=&quot;item&quot;&gt;&lt;li&gt;&lt;b&gt;Name:&lt;/b&gt; ', decodeURIComponent(escape(f.name)), '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Type:&lt;/b&gt; ', f.type || 'n/a', '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Size:&lt;/b&gt; ',
+  		f.size, ' bytes, &lt;/li&gt;&lt;li&gt;&lt;b&gt;last modified:&lt;/b&gt; ',
+  		f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+  		'&lt;/li&gt;&lt;/ul&gt;');
+  }
+  document.getElementById('list').innerHTML = '&lt;h4&gt;Information&lt;/h4&gt;&lt;ul class=&quot;main&quot;&gt;' + output.join('') + '&lt;/ul&gt;';
+})
+
+zone.multiple(true);
+</code></pre>
+
+<p>This is just simple code. The main crux of this code lies in the <code>send</code> event handler. When a user <em>drops</em> or <em>uploads</em> a file using the upload button, <code>send</code> event is called. Next we loop over each and every file and append it&rsquo;s meta-data info to the <code>output</code> array. After that we push all of the data from the <code>output</code> array to the <code>#list</code> div. It&rsquo;s that simple!</p>
+
+<p>The last line:</p>
+
+<pre><code>zone.multiple(true);
+</code></pre>
+
+<p>tells zone that it should allow multi-file uploads as well.</p>
+
+<p>Congrats on reaching this far! <a href="http://yasoob.me/html5-fileapi">You can see the app running here as well</a></p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
