@@ -237,8 +237,7 @@ zone.event('send', function (files) {
   for (var i = 0, f; f = files[i]; i++) {
   	output.push('&lt;ul class=&quot;item&quot;&gt;&lt;li&gt;&lt;b&gt;Name:&lt;/b&gt; ', decodeURIComponent(escape(f.name)), '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Type:&lt;/b&gt; ', f.type || 'n/a', '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Size:&lt;/b&gt; ',
   		f.size, ' bytes, &lt;/li&gt;&lt;li&gt;&lt;b&gt;last modified:&lt;/b&gt; ',
-  		f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-  		'&lt;/li&gt;&lt;/ul&gt;');
+  		f.modDate,'&lt;/li&gt;&lt;/ul&gt;');
   }
   document.getElementById('list').innerHTML = '&lt;h4&gt;Information&lt;/h4&gt;&lt;ul class=&quot;main&quot;&gt;' + output.join('') + '&lt;/ul&gt;';
 })

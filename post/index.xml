@@ -223,8 +223,7 @@ zone.event(&#39;send&#39;, function (files) {
   for (var i = 0, f; f = files[i]; i++) {
   	output.push(&#39;&amp;lt;ul class=&amp;quot;item&amp;quot;&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Name:&amp;lt;/b&amp;gt; &#39;, decodeURIComponent(escape(f.name)), &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Type:&amp;lt;/b&amp;gt; &#39;, f.type || &#39;n/a&#39;, &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Size:&amp;lt;/b&amp;gt; &#39;,
   		f.size, &#39; bytes, &amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;last modified:&amp;lt;/b&amp;gt; &#39;,
-  		f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : &#39;n/a&#39;,
-  		&#39;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&#39;);
+  		f.modDate,&#39;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&#39;);
   }
   document.getElementById(&#39;list&#39;).innerHTML = &#39;&amp;lt;h4&amp;gt;Information&amp;lt;/h4&amp;gt;&amp;lt;ul class=&amp;quot;main&amp;quot;&amp;gt;&#39; + output.join(&#39;&#39;) + &#39;&amp;lt;/ul&amp;gt;&#39;;
 })
