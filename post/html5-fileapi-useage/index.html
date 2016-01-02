@@ -138,6 +138,9 @@ ul.item{
 ul.item:last-child{
 	margin-bottom: 0px;
 }
+.f-name{
+  word-wrap: break-word;
+}
 /***
   Styles below are only required if you're using &lt;iframe&gt; fallback in
   addition to HTML5 drag &amp; drop (only working in Firefox/Chrome/Opera 15+).
@@ -235,7 +238,7 @@ zone.event('send', function (files) {
   // files is a FileList of File objects. List some properties.
   var output = [];
   for (var i = 0, f; f = files[i]; i++) {
-  	output.push('&lt;ul class=&quot;item&quot;&gt;&lt;li&gt;&lt;b&gt;Name:&lt;/b&gt; ', decodeURIComponent(escape(f.name)), '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Type:&lt;/b&gt; ', f.type || 'n/a', '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Size:&lt;/b&gt; ',
+  	output.push('&lt;ul class=&quot;item&quot;&gt;&lt;li class=&quot;f-name&quot;&gt;&lt;b&gt;Name:&lt;/b&gt; ', decodeURIComponent(escape(f.name)), '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Type:&lt;/b&gt; ', f.type || 'n/a', '&lt;/li&gt;&lt;li&gt;&lt;b&gt;Size:&lt;/b&gt; ',
   		f.size, ' bytes, &lt;/li&gt;&lt;li&gt;&lt;b&gt;last modified:&lt;/b&gt; ',
   		f.modDate,'&lt;/li&gt;&lt;/ul&gt;');
   }

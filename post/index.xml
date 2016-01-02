@@ -124,6 +124,9 @@ ul.item{
 ul.item:last-child{
 	margin-bottom: 0px;
 }
+.f-name{
+  word-wrap: break-word;
+}
 /***
   Styles below are only required if you&#39;re using &amp;lt;iframe&amp;gt; fallback in
   addition to HTML5 drag &amp;amp; drop (only working in Firefox/Chrome/Opera 15+).
@@ -221,7 +224,7 @@ zone.event(&#39;send&#39;, function (files) {
   // files is a FileList of File objects. List some properties.
   var output = [];
   for (var i = 0, f; f = files[i]; i++) {
-  	output.push(&#39;&amp;lt;ul class=&amp;quot;item&amp;quot;&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Name:&amp;lt;/b&amp;gt; &#39;, decodeURIComponent(escape(f.name)), &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Type:&amp;lt;/b&amp;gt; &#39;, f.type || &#39;n/a&#39;, &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Size:&amp;lt;/b&amp;gt; &#39;,
+  	output.push(&#39;&amp;lt;ul class=&amp;quot;item&amp;quot;&amp;gt;&amp;lt;li class=&amp;quot;f-name&amp;quot;&amp;gt;&amp;lt;b&amp;gt;Name:&amp;lt;/b&amp;gt; &#39;, decodeURIComponent(escape(f.name)), &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Type:&amp;lt;/b&amp;gt; &#39;, f.type || &#39;n/a&#39;, &#39;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;Size:&amp;lt;/b&amp;gt; &#39;,
   		f.size, &#39; bytes, &amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;&amp;lt;b&amp;gt;last modified:&amp;lt;/b&amp;gt; &#39;,
   		f.modDate,&#39;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&#39;);
   }
