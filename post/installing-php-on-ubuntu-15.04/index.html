@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>How to Install PHP &amp; Apache on Ubuntu 15.04 - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">How to Install PHP &amp; Apache on Ubuntu 15.04</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2016-01-02">January 02, 2016</time></span>
+			<section itemprop="entry-text">
+				<p><strong>Hi folks!</strong></p>
+
+<p>How are you? I hope you are doing great. In this short, quick tutorial I will show you how you can easily install and setup PHP and Apache on Ubuntu 15.04. Before going any further please update your package index:</p>
+
+<pre><code>$ sudo apt-get update
+</code></pre>
+
+<p><strong>1.Installing  &amp; Testing Apache</strong></p>
+
+<p>Okay so we are good to go! Let&rsquo;s begin by installing apache first:</p>
+
+<pre><code>$ sudo apt-get install apache2
+</code></pre>
+
+<p>After apache finishes installing, you can test it by opening <code>localhost</code> in your browser. It should display this page:</p>
+
+<p><img src="http://yasoob.github.io/gci/images/default_apache.png" alt="Apache Running" /></p>
+
+<p>If the above page doesn&rsquo;t show up then it means that you did something wrong. Start all-over again.</p>
+
+<p><strong>2.Installing MySQL</strong></p>
+
+<p>MySQL is mostly used with regular PHP applications. Let&rsquo;s install it as well.</p>
+
+<pre><code>$ sudo apt-get install mysql-server php5-mysql
+</code></pre>
+
+<p>If it asks you for a password just key in a new password. Now we need to setup MySQL. The following command will tell MySQL to setup it&rsquo;s directory structure:</p>
+
+<pre><code>$ sudo mysql_install_db
+</code></pre>
+
+<p>Now we need to run a helper script which modifies all of the dangerous defaults of MySQL so that our database becomes more secure:</p>
+
+<pre><code>$ sudo mysql_secure_installation
+</code></pre>
+
+<p>MySQL is now installed and secured. It&rsquo;s time to move on to PHP itself.</p>
+
+<p><strong>3.Installing PHP</strong></p>
+
+<p>It&rsquo;s easy to install PHP as well. Just key in the following command and you are done:</p>
+
+<pre><code>$ sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+</code></pre>
+
+<p>So now we need to test that php has installed successfully or not. But before we do that we need to change a configuration of Apache. By default Apache prefers an <code>index.html</code> over an <code>index.php</code> file. We need to change this. Just edit the <code>dir.conf</code> file:</p>
+
+<pre><code>$ sudo nano /etc/apache2/mods-enabled/dir.conf
+</code></pre>
+
+<p>After executing the above command you will be confronted with the following content:</p>
+
+<pre><code>&lt;IfModule mod_dir.c&gt;
+    DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+&lt;/IfModule&gt;
+</code></pre>
+
+<p>You just need to shift that <code>index.php</code> right next to <code>DirectoryIndex</code>. This increases the preference of <code>index.php</code> files.</p>
+
+<p>Now close the file and restart apache for the changes to take effect:</p>
+
+<pre><code>$ sudo service apache2 restart
+</code></pre>
+
+<p>We should also install <code>php5-cli</code> as well. You never know when you will need it:</p>
+
+<pre><code>$ sudo apt-get install php5-cli
+</code></pre>
+
+<p><strong>4.Testing Everything</strong></p>
+
+<p>Create a new file in <code>/var/www/html</code> dir and save it with <code>info.php</code> filename:</p>
+
+<pre><code>$ sudo nano /var/www/html/info.php
+</code></pre>
+
+<p>Add the following content to this file:</p>
+
+<pre><code>&lt;?php
+phpinfo();
+?&gt;
+</code></pre>
+
+<p>Now open <code>localhost/info.php</code> in your browser. It should display a page similar to this:</p>
+
+<p><img src="http://yasoob.github.io/gci/images/default_php.png" alt="Info.php" /></p>
+
+<p>Congratulations! Your php and apache installation is working perfectly!</p>
+
+<p>Now we can move forward and create a simple dynamic website containing more than one page. Create a directory on your Desktop and create a symlink to it in the <code>/var/www/</code> dir so that we can edit the contents in our home directory and don&rsquo;t have to type sudo before editing the files:</p>
+
+<pre><code>$ mv /var/www/html /var/www/html-bak
+$ mkdir ~/Desktop/html
+$ sudo ln -s ~/Desktop/html /var/www/
+</code></pre>
+
+<p>Now let&rsquo;s create the separate <code>.php</code> files.</p>
+
+<pre><code>$ touch ~/Desktop/html/index.php ~/Desktop/html/welcome.php
+</code></pre>
+
+<p>Now edit the newly created <code>index.php</code> file and add the following content to it:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;Who Am I?&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+	&lt;h3&gt;Who are You?&lt;/h3&gt;
+	&lt;form action=&quot;welcome.php&quot; method=&quot;post&quot; &gt;
+		&lt;input name=&quot;q&quot; placeholder=&quot;Name&quot; type=&quot;text&quot;&gt;&lt;/input&gt;
+		&lt;br&gt;
+		&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+	&lt;/form&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Edit the <code>welcome.php</code> file next and add the following content to it:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;Who Am I?&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+	&lt;h2&gt;Hello, &lt;?php print($_POST[&quot;q&quot;]); ?&gt;&lt;/h2&gt;
+   &lt;h3&gt;Nice to meet you!&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Now if you try to navigate to <code>localhost</code> you will see that our website is displaying correctly:</p>
+
+<p><img src="http://yasoob.github.io/gci/images/php-working.png" alt="PHP working" /></p>
+
+<p>Try entering your name in the text field and press enter. You will see that the dynamic aspect of our website is also behaving correctly.</p>
+
+<p>I updated the css a bit and used <code>skeleton.css</code>. I have added the screenshots below:</p>
+
+<p><img src="http://yasoob.github.io/gci/images/php-test.png" alt="PHP-Test1" /></p>
+
+<p><img src="http://yasoob.github.io/gci/images/php-test2.png" alt="PHP-Test2" /></p>
+
+<p>Cheers!</p>
+
+<p><strong>Exercise for Reader:</strong></p>
+
+<ul>
+<li>Use <code>Skeleton.css</code> to make it more user-friendly</li>
+</ul>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

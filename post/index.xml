@@ -6,8 +6,174 @@
     <description>Recent content in Posts on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Jan 2016 03:30:06 +0500</lastBuildDate>
+    <lastBuildDate>Sat, 02 Jan 2016 06:22:08 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to Install PHP &amp; Apache on Ubuntu 15.04</title>
+      <link>http://yasoob.github.io/gci/post/installing-php-on-ubuntu-15.04/</link>
+      <pubDate>Sat, 02 Jan 2016 06:22:08 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/installing-php-on-ubuntu-15.04/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Hi folks!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;How are you? I hope you are doing great. In this short, quick tutorial I will show you how you can easily install and setup PHP and Apache on Ubuntu 15.04. Before going any further please update your package index:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;1.Installing  &amp;amp; Testing Apache&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Okay so we are good to go! Let&amp;rsquo;s begin by installing apache first:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install apache2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After apache finishes installing, you can test it by opening &lt;code&gt;localhost&lt;/code&gt; in your browser. It should display this page:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/default_apache.png&#34; alt=&#34;Apache Running&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If the above page doesn&amp;rsquo;t show up then it means that you did something wrong. Start all-over again.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.Installing MySQL&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;MySQL is mostly used with regular PHP applications. Let&amp;rsquo;s install it as well.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install mysql-server php5-mysql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If it asks you for a password just key in a new password. Now we need to setup MySQL. The following command will tell MySQL to setup it&amp;rsquo;s directory structure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo mysql_install_db
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need to run a helper script which modifies all of the dangerous defaults of MySQL so that our database becomes more secure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo mysql_secure_installation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;MySQL is now installed and secured. It&amp;rsquo;s time to move on to PHP itself.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.Installing PHP&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s easy to install PHP as well. Just key in the following command and you are done:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So now we need to test that php has installed successfully or not. But before we do that we need to change a configuration of Apache. By default Apache prefers an &lt;code&gt;index.html&lt;/code&gt; over an &lt;code&gt;index.php&lt;/code&gt; file. We need to change this. Just edit the &lt;code&gt;dir.conf&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo nano /etc/apache2/mods-enabled/dir.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After executing the above command you will be confronted with the following content:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;IfModule mod_dir.c&amp;gt;
+    DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+&amp;lt;/IfModule&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You just need to shift that &lt;code&gt;index.php&lt;/code&gt; right next to &lt;code&gt;DirectoryIndex&lt;/code&gt;. This increases the preference of &lt;code&gt;index.php&lt;/code&gt; files.&lt;/p&gt;
+
+&lt;p&gt;Now close the file and restart apache for the changes to take effect:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo service apache2 restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We should also install &lt;code&gt;php5-cli&lt;/code&gt; as well. You never know when you will need it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install php5-cli
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4.Testing Everything&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a new file in &lt;code&gt;/var/www/html&lt;/code&gt; dir and save it with &lt;code&gt;info.php&lt;/code&gt; filename:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo nano /var/www/html/info.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add the following content to this file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+phpinfo();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now open &lt;code&gt;localhost/info.php&lt;/code&gt; in your browser. It should display a page similar to this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/default_php.png&#34; alt=&#34;Info.php&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Congratulations! Your php and apache installation is working perfectly!&lt;/p&gt;
+
+&lt;p&gt;Now we can move forward and create a simple dynamic website containing more than one page. Create a directory on your Desktop and create a symlink to it in the &lt;code&gt;/var/www/&lt;/code&gt; dir so that we can edit the contents in our home directory and don&amp;rsquo;t have to type sudo before editing the files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mv /var/www/html /var/www/html-bak
+$ mkdir ~/Desktop/html
+$ sudo ln -s ~/Desktop/html /var/www/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s create the separate &lt;code&gt;.php&lt;/code&gt; files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch ~/Desktop/html/index.php ~/Desktop/html/welcome.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now edit the newly created &lt;code&gt;index.php&lt;/code&gt; file and add the following content to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+	&amp;lt;title&amp;gt;Who Am I?&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div class=&amp;quot;wrapper&amp;quot;&amp;gt;
+	&amp;lt;h3&amp;gt;Who are You?&amp;lt;/h3&amp;gt;
+	&amp;lt;form action=&amp;quot;welcome.php&amp;quot; method=&amp;quot;post&amp;quot; &amp;gt;
+		&amp;lt;input name=&amp;quot;q&amp;quot; placeholder=&amp;quot;Name&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt;
+		&amp;lt;br&amp;gt;
+		&amp;lt;button type=&amp;quot;submit&amp;quot;&amp;gt;Submit&amp;lt;/button&amp;gt;
+	&amp;lt;/form&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edit the &lt;code&gt;welcome.php&lt;/code&gt; file next and add the following content to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+	&amp;lt;title&amp;gt;Who Am I?&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div class=&amp;quot;wrapper&amp;quot;&amp;gt;
+	&amp;lt;h2&amp;gt;Hello, &amp;lt;?php print($_POST[&amp;quot;q&amp;quot;]); ?&amp;gt;&amp;lt;/h2&amp;gt;
+   &amp;lt;h3&amp;gt;Nice to meet you!&amp;lt;/h3&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now if you try to navigate to &lt;code&gt;localhost&lt;/code&gt; you will see that our website is displaying correctly:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/php-working.png&#34; alt=&#34;PHP working&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Try entering your name in the text field and press enter. You will see that the dynamic aspect of our website is also behaving correctly.&lt;/p&gt;
+
+&lt;p&gt;I updated the css a bit and used &lt;code&gt;skeleton.css&lt;/code&gt;. I have added the screenshots below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/php-test.png&#34; alt=&#34;PHP-Test1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yasoob.github.io/gci/images/php-test2.png&#34; alt=&#34;PHP-Test2&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cheers!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Exercise for Reader:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;Skeleton.css&lt;/code&gt; to make it more user-friendly&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Soving the Kivy Pong Bug</title>
