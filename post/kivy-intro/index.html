@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>An Intro to Kivy - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">An Intro to Kivy</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-30">December 30, 2015</time></span>
+			<section itemprop="entry-text">
+				<p>Kivy is a fantastic application framework which allows to to make cross-platform GUI applications easily. You can even make Android and IOS applications using kivy. The <a href="http://kivy.org/#home">official website</a> of kivy sells it as &ldquo;Open source Python library for rapid development of applications that make use of innovative user interfaces, such as multi-touch apps.&rdquo;</p>
+
+<p>I have used kivy once before and I really fell in love with it. The <a href="http://kivy.org/docs/gettingstarted/rules.html">KV</a> language gives you immense control over the GUI part of application development. You can use kivy on any OS, let it be Windows, Linux or Mac OSX. The applications created with Kivy can run on Linux, Windows, OS X, Android and iOS.</p>
+
+<p>Want to know about one more great thing about kivy? It is 100% free to use even in professional business applications. It is distributed under the MIT license which means that you don&rsquo;t have to pay a dime to use it. Some of it&rsquo;s CPU intensive parts are written in C instead of pure Python. This gives you the best of both worlds, the power of C and the ease of use of Python.</p>
+
+<p>Want to see the consiseness of Kivy? The following code constitutes a fully working kivy application:</p>
+
+<pre><code>from kivy.app import App
+from kivy.uix.button import Button
+
+class TestApp(App):
+    def build(self):
+        return Button(text='Hello World')
+
+TestApp().run()
+</code></pre>
+
+<p>Below is a sample Kivy paint app from the <a href="http://kivy.org/docs/tutorials/firstwidget.html">official tutorial</a>.</p>
+
+<p><img src="http://kivy.org/docs/_images/guide-4.jpg" alt="Kivy Paint app" /></p>
+
+<p>In the future I will love to create a Chemistry application using Kivy. The application would be similar to ChemSketch. I will use Kivy because it provides easy APIs to use Canvas and draw shapes. As that would be the main part of my app, I would love to give kivy a shot!</p>
+
+<p>I hope that you liked this short intro to kivy.</p>
+
+<p>Here are some useful links for your future endeavours:</p>
+
+<ul>
+<li><a href="http://kivy.org/#home">Kivy Homepage</a></li>
+<li><a href="http://kivy.org/docs/gettingstarted/intro.html">Kivy Introduction</a></li>
+<li><a href="http://kivy.org/docs/tutorials/pong.html">Pong Tutorial</a></li>
+<li><a href="http://kivy.org/#gallery">Kivy App showcase</a></li>
+</ul>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

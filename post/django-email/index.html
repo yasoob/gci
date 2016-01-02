@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>Implementing Email Sending Functionality in a Django App - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Implementing Email Sending Functionality in a Django App</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-31">December 31, 2015</time></span>
+			<section itemprop="entry-text">
+				<p>Hi there folks! Recently I was doing a task for fossasia which required me to make a Django web app which allowed users to submit their email addresses and receive a welcome email in return. I was able to complete the project in a couple of hours. Most of the time was spent in making the UI look good. I am going to show you how you can easily make a similar app.</p>
+
+<p>For the sake of this tutorial we will be using Gmail.</p>
+
+<p><strong>1.Setup the project</strong></p>
+
+<p>First of all we need to start a django project. We can start one on our Desktop by typing the following command in the terminal:</p>
+
+<pre><code>$ django-admin startproject gci_email
+</code></pre>
+
+<p>Now let&rsquo;s <code>cd</code> into the newly created project and move on:</p>
+
+<pre><code>$ cd gci_email
+</code></pre>
+
+<p><strong>2.Creating a new app</strong></p>
+
+<p>Now we need to make a new app. You can do that by running the following command:</p>
+
+<pre><code>$ python manage.py startapp send_email
+</code></pre>
+
+<p>The above command creates a <code>send_email</code> directory inside our project with a couple of files in it.</p>
+
+<p><strong>3.Modify the project settings</strong></p>
+
+<p>Now let&rsquo;s just quickly go ahead and modify the project settings a little bit. In this step we will add our app and all our email sending related info to the <code>settings.py</code> file. Open the <code>settings.py</code> file which is available in the <code>gci_email</code> folder and add the following content to it:</p>
+
+<pre><code>EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Your gmail email'
+EMAIL_HOST_PASSWORD = 'Your gmail password'
+DEFAULT_FROM_EMAIL = 'Your name'
+DEFAULT_TO_EMAIL = 'Your email'
+</code></pre>
+
+<p>In the <code>INSTALLED_APPS</code> section of your <code>settings.py</code> file you need to add the following entry to the <code>INSTALLED_APPS</code> list:</p>
+
+<pre><code>'send_email.apps.SendEmailConfig'
+</code></pre>
+
+<p>Now the settings.py file should contain the following modified <code>INSTALLED_APPS</code> list:</p>
+
+<pre><code>INSTALLED_APPS = [
+    'send_email.apps.SendEmailConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+</code></pre>
+
+<p>Let&rsquo;s add the static files related variables to our <code>settings.py</code> file as well:</p>
+
+<pre><code>BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+</code></pre>
+
+<p><strong>4.Creating urls</strong></p>
+
+<p>Modify the <code>urls.py</code> file in <code>gci_email</code> folder to look something like this:</p>
+
+<pre><code>from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include('send_email.urls')),
+]
+</code></pre>
+
+<p>Now create a <code>urls.py</code> file in <code>send_email</code> folder as well and add the following content to it:</p>
+
+<pre><code>from django.conf.urls import url
+
+from . import views
+
+urlpatterns = [
+    url(r'^$', views.index, name='index'),
+    url(r'^success', views.success, name='success'),
+]
+</code></pre>
+
+<p><strong>5.Adding Views</strong></p>
+
+<p>Now it&rsquo;s time to edit the views. Go to the <code>views.py</code> file in <code>send_email</code> directory and modify it to look something like this:</p>
+
+<pre><code>from django.shortcuts import render
+from django.http import HttpResponse
+import django
+from django.conf import settings
+from django.core.mail import send_mail
+
+
+def index(request):
+    return render(request, 'index.html')
+
+
+def success(request):
+    email = request.POST.get('email', '')
+    data = &quot;&quot;&quot;
+Hello there!
+
+I wanted to personally write an email in order to welcome you to our platform.\
+ We have worked day and night to ensure that you get the best service. I hope \
+that you will continue to use our service. We send out a newsletter once a \
+week. Make sure that you read it. It is usually very informative.
+
+Cheers!
+~ Yasoob
+    &quot;&quot;&quot;
+    send_mail('Welcome!', data, &quot;Yasoob&quot;,
+              [email], fail_silently=False)
+    return render(request, 'success.html')
+</code></pre>
+
+<p><strong>6.Adding templates</strong></p>
+
+<p>Now we need to create a <code>templates</code> dir in the <code>send_email</code> folder and create 2 files in it. Namely, <code>index.html</code> and <code>success.html</code>.</p>
+
+<p>You need to create a form in the <code>index.html</code> file with an input fild of name email. The <code>success.html</code> file does not need any special content.</p>
+
+<p>That&rsquo;s it! Now you can first create migrations, then apply them and finally run your project. Just key in the following commands:</p>
+
+<pre><code>$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
+</code></pre>
+
+<p>I have deployed a sample app over <a href="https://email-django.herokuapp.com/">here</a> and the code for this project is available on <a href="https://github.com/yasoob/email_django">GitHub</a>.</p>
+
+<p>Cheers!</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

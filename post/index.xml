@@ -668,10 +668,10 @@ if __name__ == &#39;__main__&#39;:
     
     <item>
       <title>Implementing Email Sending Functionality in a Django App</title>
-      <link>http://yasoob.github.io/gci/post/django%20email/</link>
+      <link>http://yasoob.github.io/gci/post/django-email/</link>
       <pubDate>Thu, 31 Dec 2015 01:20:38 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/django%20email/</guid>
+      <guid>http://yasoob.github.io/gci/post/django-email/</guid>
       <description>&lt;p&gt;Hi there folks! Recently I was doing a task for fossasia which required me to make a Django web app which allowed users to submit their email addresses and receive a welcome email in return. I was able to complete the project in a couple of hours. Most of the time was spent in making the UI look good. I am going to show you how you can easily make a similar app.&lt;/p&gt;
 
 &lt;p&gt;For the sake of this tutorial we will be using Gmail.&lt;/p&gt;
@@ -817,10 +817,10 @@ $ python manage.py runserver
     
     <item>
       <title>An Intro to Kivy</title>
-      <link>http://yasoob.github.io/gci/post/kivy%20intro/</link>
+      <link>http://yasoob.github.io/gci/post/kivy-intro/</link>
       <pubDate>Wed, 30 Dec 2015 03:34:37 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/kivy%20intro/</guid>
+      <guid>http://yasoob.github.io/gci/post/kivy-intro/</guid>
       <description>&lt;p&gt;Kivy is a fantastic application framework which allows to to make cross-platform GUI applications easily. You can even make Android and IOS applications using kivy. The &lt;a href=&#34;http://kivy.org/#home&#34;&gt;official website&lt;/a&gt; of kivy sells it as &amp;ldquo;Open source Python library for rapid development of applications that make use of innovative user interfaces, such as multi-touch apps.&amp;rdquo;&lt;/p&gt;
 
 &lt;p&gt;I have used kivy once before and I really fell in love with it. The &lt;a href=&#34;http://kivy.org/docs/gettingstarted/rules.html&#34;&gt;KV&lt;/a&gt; language gives you immense control over the GUI part of application development. You can use kivy on any OS, let it be Windows, Linux or Mac OSX. The applications created with Kivy can run on Linux, Windows, OS X, Android and iOS.&lt;/p&gt;
@@ -860,10 +860,10 @@ TestApp().run()
     
     <item>
       <title>Getting Started with Hugo on Ubuntu 14.04</title>
-      <link>http://yasoob.github.io/gci/post/installing%20hugo/</link>
+      <link>http://yasoob.github.io/gci/post/installing-hugo/</link>
       <pubDate>Wed, 30 Dec 2015 01:11:10 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/installing%20hugo/</guid>
+      <guid>http://yasoob.github.io/gci/post/installing-hugo/</guid>
       <description>&lt;p&gt;Hugo is a static website generator which is written using golang. It is extremely fast and lightweight. You can use it to create a blog or full blown away corporate website. In this post I will show you how you can deploy a blog made with Hugo to GitHub pages. Let&amp;rsquo;s start!&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;1.Download the binary&lt;/strong&gt;&lt;/p&gt;
@@ -1001,17 +1001,17 @@ $ git push -u origin master
     
     <item>
       <title>Installing Wine 1.8 on Ubuntu 14.04</title>
-      <link>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</link>
+      <link>http://yasoob.github.io/gci/post/wine1.8-ubuntu/</link>
       <pubDate>Tue, 29 Dec 2015 02:38:37 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/wine1.8%20ubuntu/</guid>
+      <guid>http://yasoob.github.io/gci/post/wine1.8-ubuntu/</guid>
       <description>
 
 &lt;p&gt;Wine is a Compatibility layer for running windows applications on Linux and Mac OSX. Instead of simulating internal Windows logic like a virtual machine or emulator, Wine translates Windows API calls into POSIX calls on-the-fly.&lt;/p&gt;
 
 &lt;p&gt;In this post I will show you how you can install Wine on Ubuntu 14.04. It is really easy to install it. We will be doing most of our work on the command-line using &lt;code&gt;apt&lt;/code&gt;. It is the best and easiest way to add &lt;code&gt;ppa&lt;/code&gt;s and install &lt;code&gt;pakages&lt;/code&gt; in linux.&lt;/p&gt;
 
-&lt;h2 id=&#34;adding-the-ppa:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Adding the PPA:&lt;/h2&gt;
+&lt;h2 id=&#34;adding-the-ppa:3e94cd25a7a9bcce645186ed345d3367&#34;&gt;Adding the PPA:&lt;/h2&gt;
 
 &lt;p&gt;The first step is to add the &lt;code&gt;ppa&lt;/code&gt; to your system. You can easily do this by running the following command:&lt;/p&gt;
 
@@ -1020,7 +1020,7 @@ $ git push -u origin master
 
 &lt;p&gt;&lt;img src=&#34;http://imgur.com/tz215JA.png&#34; alt=&#34;adding the ppa&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;update-the-packages-list:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Update the packages list:&lt;/h2&gt;
+&lt;h2 id=&#34;update-the-packages-list:3e94cd25a7a9bcce645186ed345d3367&#34;&gt;Update the packages list:&lt;/h2&gt;
 
 &lt;p&gt;Now we need to update the packages list. We can do that easily as well. Just type in the following command in the terminal:&lt;/p&gt;
 
@@ -1029,7 +1029,7 @@ $ git push -u origin master
 
 &lt;p&gt;&lt;img src=&#34;http://imgur.com/DsOIFXv.png&#34; alt=&#34;updating&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;installing-wine:a312123215a2f39fcfdf0a1148149d1d&#34;&gt;Installing Wine:&lt;/h2&gt;
+&lt;h2 id=&#34;installing-wine:3e94cd25a7a9bcce645186ed345d3367&#34;&gt;Installing Wine:&lt;/h2&gt;
 
 &lt;p&gt;Now we are on the last step. In this step we will install wine itself. Just type the following commands in the terminal:&lt;/p&gt;
 
@@ -1176,10 +1176,10 @@ venv1 hook.log
     
     <item>
       <title>Setting up loklak Server on Linux</title>
-      <link>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</link>
+      <link>http://yasoob.github.io/gci/post/setting-up-loklak-server-%7C-linux/</link>
       <pubDate>Fri, 25 Dec 2015 05:00:23 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/setting%20up%20loklak%20server%20%7C%20linux/</guid>
+      <guid>http://yasoob.github.io/gci/post/setting-up-loklak-server-%7C-linux/</guid>
       <description>&lt;p&gt;Setting up loklak_server is really easy. You just have to follow a couple of steps which are clearly mentioned in the official setup docs.&lt;/p&gt;
 
 &lt;p&gt;The steps are as follow:&lt;/p&gt;
@@ -1208,10 +1208,10 @@ venv1 hook.log
     
     <item>
       <title>Making a Flask app with login functionality</title>
-      <link>http://yasoob.github.io/gci/post/flask%20login%20app/</link>
+      <link>http://yasoob.github.io/gci/post/flask-login-app/</link>
       <pubDate>Tue, 22 Dec 2015 04:42:46 +0500</pubDate>
       
-      <guid>http://yasoob.github.io/gci/post/flask%20login%20app/</guid>
+      <guid>http://yasoob.github.io/gci/post/flask-login-app/</guid>
       <description>
 
 &lt;p&gt;Hi there guys! In this post I will share my experience with you while developing a Flask app with login functionality. The sourcecode of the app is available &lt;a href=&#34;https://github.com/yasoob/flask-login&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
@@ -1262,7 +1262,7 @@ venv1 hook.log
 
 &lt;p&gt;The 2 custom methods allow us to save password hashes instead of plain-text passwords. Always make sure that you save only the hashes and not the plain-text passwords so that if you database is somehow compromized, the plain-text passwords are not leaked.&lt;/p&gt;
 
-&lt;h2 id=&#34;views:6d79db0366d5708a8361ae566681a4cf&#34;&gt;Views:&lt;/h2&gt;
+&lt;h2 id=&#34;views:7b492e7c49d0f5cf8978e079d93de8ff&#34;&gt;Views:&lt;/h2&gt;
 
 &lt;p&gt;There are four views in my app. Namely:&lt;/p&gt;
 
@@ -1315,7 +1315,7 @@ session[&#39;user_name&#39;] = user.name
 
 &lt;p&gt;There is one other decorated method as well. It is &lt;code&gt;check_user_status&lt;/code&gt;. It is called before every request. It allows us to modify a couple of variables to our liking. We use it to modify the &lt;code&gt;session&lt;/code&gt; variable.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:6d79db0366d5708a8361ae566681a4cf&#34;&gt;Conclusion:&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion:7b492e7c49d0f5cf8978e079d93de8ff&#34;&gt;Conclusion:&lt;/h2&gt;
 
 &lt;p&gt;The key here is the &lt;code&gt;session&lt;/code&gt; dict. We use it to check whether the user is logged-in or not. I hope you enjoyed this short intro. You can always checkout the whole source-code of the &lt;code&gt;app.py&lt;/code&gt; file from the &lt;a href=&#34;https://github.com/yasoob/flask-login/blob/master/app.py&#34;&gt;project&lt;/a&gt; to get a better understanding.&lt;/p&gt;
 </description>

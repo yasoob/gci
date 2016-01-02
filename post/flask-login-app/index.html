@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>Making a Flask app with login functionality - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Making a Flask app with login functionality</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-12-22">December 22, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>Hi there guys! In this post I will share my experience with you while developing a Flask app with login functionality. The sourcecode of the app is available <a href="https://github.com/yasoob/flask-login">here</a>.</p>
+
+<p>We will be using the following libraries:</p>
+
+<ul>
+<li>Flask (obviously)</li>
+<li>Flask-SQLAlchemy</li>
+<li>Jinja2</li>
+<li>SQLAlchemy</li>
+<li>Werkzeug</li>
+<li>Flask-WTF</li>
+</ul>
+
+<p>First-of-all we will define a <strong>User</strong> model. It goes something like this:</p>
+
+<pre><code>class User(db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+    password = db.Column(db.String(120))
+    email = db.Column(db.String(240))
+
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def __repr__(self):
+        return '&lt;User %r&gt;' % self.name
+</code></pre>
+
+<p>We did a couple of things here. They are:</p>
+
+<ul>
+<li>Assigned <code>user</code> as the tablename</li>
+<li>created 4 fields with <code>id</code> as the primary_key</li>
+<li>created 2 custom methods, <code>set_password</code> and <code>check_password</code>.</li>
+<li>Modified the output of <code>__repr___</code> to make it more user-friendly</li>
+</ul>
+
+<p>The 2 custom methods allow us to save password hashes instead of plain-text passwords. Always make sure that you save only the hashes and not the plain-text passwords so that if you database is somehow compromized, the plain-text passwords are not leaked.</p>
+
+<h2 id="views:7b492e7c49d0f5cf8978e079d93de8ff">Views:</h2>
+
+<p>There are four views in my app. Namely:</p>
+
+<ul>
+<li>home</li>
+<li>login</li>
+<li>signup</li>
+<li>logout</li>
+</ul>
+
+<p><strong><code>home</code>:</strong></p>
+
+<p>This route simply redirects to the <code>login</code> view if the user is not logged in. We check that the user is logged in or not by running the following code:</p>
+
+<pre><code>if session['user_name']:
+</code></pre>
+
+<p>This only runs if there is a <code>user_name</code> key in the session dict. So if there is not <code>user_name</code> in the session dict we simply redirect the user to login by running this code:</p>
+
+<pre><code>return redirect(url_for('login'),401)
+</code></pre>
+
+<p><strong>401</strong> stands for un-authorized. This status code tells the user that he is not authorized to view this page.</p>
+
+<p><strong><code>login</code>:</strong></p>
+
+<p>In this view we create an instance of the <code>LoginForm</code> and present it to the user if he is not logged in. If the user submits the form correctly and a user with the email specified exists in our server, we redirect the user to the <code>home</code> view. We check that the user_email is in the database and the password is correct by running the following code:</p>
+
+<pre><code>user = User.query.filter_by(email=form.email.data).first()
+if user is not None and user.check_password(form.password.data):
+</code></pre>
+
+<p>If it is correct then we modify the session variables by running this code:</p>
+
+<pre><code>session['user_email'] = form.email.data
+session['user_name'] = user.name
+</code></pre>
+
+<p>If it is incorrect then we present the errors to the user and ask him/her to try again.</p>
+
+<p><strong><code>signup</code>:</strong></p>
+
+<p>This view is kind-of similar to the login view. In this view we create an instance of the <code>SignupForm</code> form and present it to the user. If the form is validated on submit then we create a user in our database with the supplied information.</p>
+
+<p>Finally, we redirect the user to the home view.</p>
+
+<p><strong><code>logout</code>:</strong></p>
+
+<p>This view simply pops the <code>user_name</code> and <code>user_email</code> values from the <code>session</code> dict.</p>
+
+<p>There is one other decorated method as well. It is <code>check_user_status</code>. It is called before every request. It allows us to modify a couple of variables to our liking. We use it to modify the <code>session</code> variable.</p>
+
+<h2 id="conclusion:7b492e7c49d0f5cf8978e079d93de8ff">Conclusion:</h2>
+
+<p>The key here is the <code>session</code> dict. We use it to check whether the user is logged-in or not. I hope you enjoyed this short intro. You can always checkout the whole source-code of the <code>app.py</code> file from the <a href="https://github.com/yasoob/flask-login/blob/master/app.py">project</a> to get a better understanding.</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
