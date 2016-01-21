@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>GitHub OAuth Authentication using Nodejs And Express - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">GitHub OAuth Authentication using Nodejs And Express</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2016-01-22">January 22, 2016</time></span>
+			<section itemprop="entry-text">
+				<p>Hi guys! In this post I will show you how you can use OAuth with GitHub. We will be using Nodejs and Express framework for accomplishing this task.</p>
+
+<p><strong>Setting up the files and installing the dependencies:</strong></p>
+
+<p>First of all, let create all the files which we will be needing for this tutorial. Open the terminal and get to work:</p>
+
+<pre><code>$ mkdir github_oauth
+$ cd github_oauth
+$ touch app.js package.json config.js
+</code></pre>
+
+<p>Now open <code>package.json</code> and put in the following content:</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;GitHubOAuth&quot;,
+  &quot;description&quot;: &quot;A simple NodeJS app for authenticating to Github using OAuth.&quot;,
+  &quot;dependencies&quot;: {
+    &quot;httpdispatcher&quot;: &quot;0.4.0&quot;,
+    &quot;request&quot;: &quot;*&quot;
+  }
+}
+</code></pre>
+
+<p>Make sure that you replace the name :)</p>
+
+<p>Now it&rsquo;s time to install the dependencies:</p>
+
+<pre><code>$ npm install
+</code></pre>
+
+<p><strong>Fleshing out the structure of our app</strong></p>
+
+<p>The authentication flow is detailed beautifully in this <a href="https://developer.github.com/v3/oauth/">help article</a>. There are only two necessary endpoints which we need. The first one is <code>/login</code> which will redirect the user to GitHub to get the tokens and the second one is <code>/callback</code> which is the url GitHub will redirect the user to.</p>
+
+<p>First of all go to <a href="https://github.com/settings/applications/new">GitHub</a> and register a new application and save your credentials. Now add your credentials to the <code>config.js</code> file like this:</p>
+
+<pre><code>module.exports = {
+	&quot;client_id&quot;: &quot;&quot;,
+	&quot;secret&quot;: &quot;&quot;
+};
+</code></pre>
+
+<p>Now let&rsquo;s add some imports to our <code>app.js</code> file.</p>
+
+<pre><code>//Lets require/import the HTTP module
+var http = require('http');
+var dispatcher = require('httpdispatcher');
+var request = require('request');
+var url = require('url');
+
+//Configuration file [Not stored in Git]
+var config = require('./config.js');
+
+const HOST = 'localhost';
+const PORT=8080; 
+
+var GitHubConfig = {
+  'client_id'   : config['client_id'],
+  'secret'      : config['secret'],
+  'redirect_uri': '',
+  'scope'       : '',
+  'state'       : Math.round(Math.random()*10)
+}
+
+//Route for static files' folder
+dispatcher.setStatic('resources');
+
+</code></pre>
+
+<p>This will setup the basic structure of our app.</p>
+
+<p><strong>Routes</strong></p>
+
+<p>Now it&rsquo;s time to setup the main <code>/</code> route.</p>
+
+<pre><code>// Get Homepage
+dispatcher.onGet(&quot;/&quot;, function(req, res) {
+    res.writeHead(200);
+    res.write(&quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&quot;+
+    	&quot;&lt;style&gt;body{text-align: center;}a{color: #000000;border: 1px solid black;padding: 10px 30px;text-decoration: none;margin-top: 10em;display: inline-block;font-size: 20px;transition: all .5s;}&quot;+
+    	&quot;a:hover{background-color: black;color: white;}&quot;+
+    	&quot;&lt;/style&gt;&quot;+
+    	&quot;&lt;a href='login'&gt;Login!&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;&quot;);
+    res.end();
+}); 
+</code></pre>
+
+<p>In the above route we simply respond to the request with a simple html response created on the fly. Now we need to implement the <code>/login</code> route which will redirect the user to GitHub for authentication:</p>
+
+<pre><code>//Redirect to login url on GitHub
+dispatcher.onGet(&quot;/login&quot;, function(req, res) {
+  var url = 'https://github.com/login/oauth/authorize'
+  + '?client_id=' + GitHubConfig.client_id
+  + (GitHubConfig.scope ? '&amp;scope=' + GitHubConfig.scope : '')
+  + '&amp;state=' + GitHubConfig.state;
+
+  res.setHeader('location', url);
+  res.statusCode = 302;
+  res.end();
+});
+</code></pre>
+
+<p>Here we are constructing the url using our GitHub configuration and redirecting the user to the respective url.</p>
+
+<p>Now we need to implement the <code>/callback</code> route where GitHub will redirect the user to.</p>
+
+<pre><code>//Get 'em callbacks!
+dispatcher.onGet(&quot;/callback&quot;, function(req, res) {
+  var query = url.parse(req.url, true).query;
+  if (query.state == GitHubConfig.state){
+    payload = {
+      'code':       	query.code,
+      'client_id':     	GitHubConfig.client_id,
+      'client_secret': 	GitHubConfig.secret
+    }
+    console.log(payload);
+    request.post({
+      url: 'https://github.com/login/oauth/access_token', 
+      formData: payload, 
+      headers: {'Accept': 'application/json'}
+      }, function (error, response, body) {
+            if (!error &amp;&amp; response.statusCode == 200) {
+              var token = JSON.parse(body).access_token;
+              res.statusCode = 302;
+              authorized(res, token);
+            }
+      }
+    );
+
+  };
+});
+</code></pre>
+
+<p>Now, this route seems a bit complex. Let&rsquo;s deconstruct it step by step. First of all we extract the queries from the url. This includes everything after the <code>?</code> in the url. Next we do a simple check <code>query.state == GitHubConfig.state</code> for fighting against CSRF attacks. After that we construct a payload which is just a fancy name for data sent with post request. Then we do a post request to GitHub and ask it to return us the token which we can use to make authenticated requests on behalf of the user.</p>
+
+<p>Hey! Where is this <code>authorized()</code> function coming from? Well, we haven&rsquo;t implemented it yet. Now is the best time to implement it :)</p>
+
+<pre><code>var authorized = function(res, token){
+  request.get({
+    url: &quot;https://api.github.com/user&quot;, 
+    headers: {'Authorization': 'token '+token, 'User-Agent': 'Mozilla/5.0'}}, 
+    function(error, response, body) {
+        if (!error &amp;&amp; response.statusCode == 200) {
+            body = JSON.parse(body);
+            var user = body.login;
+            res.end(&quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&quot;+
+            	&quot;&lt;style&gt;.key{font-size:18px; color:blue;font-weight:bold;}.string,.number,.boolean,.null{font-size:18px;}&lt;/style&gt;&quot;+
+            	&quot;&lt;pre&gt;&quot;+syntaxHighlight(JSON.stringify(body,null,2))+
+            	&quot;&lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+            );
+        } else {
+            console.log(body);
+            res.end(body);
+        }
+    }
+  );
+};
+</code></pre>
+
+<p>In this function we do a simple get request to GitHub and ask it to return us the User data. We are also using a syntaxHighlight function which simply syntax highlights our json response:</p>
+
+<pre><code>var syntaxHighlight = function(json) {
+    if (typeof json != 'string') {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+    return json.replace(/(&quot;(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\&quot;])*&quot;(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^&quot;/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '&lt;span class=&quot;' + cls + '&quot;&gt;' + match + '&lt;/span&gt;';
+    });
+}
+</code></pre>
+
+<p>Our application is finished! Now we just need to add the initializing code.</p>
+
+<p><strong>Adding the initializing code</strong></p>
+
+<p>Just add the following code at the bottom of the <code>app.js</code> file:</p>
+
+<pre><code>//Create a server
+var server = http.createServer(handleRequest);
+
+//Lets start our server
+server.listen(PORT, function(){
+    //Callback triggered when server is successfully listening. Hurray!
+    console.log(&quot;Server listening on: http://localhost:%s&quot;, PORT);
+});
+</code></pre>
+
+<p>Now we are truly finished.</p>
+
+<p><strong>Running the app</strong></p>
+
+<p>Now you can easily run the app by typing in the following command in the terminal:</p>
+
+<pre><code>$ nodejs app.js
+</code></pre>
+
+<p>I hope you enjoyed the tutorial. I will see you later :)</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

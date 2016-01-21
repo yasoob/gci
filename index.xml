@@ -6,8 +6,227 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Jan 2016 15:47:17 +0500</lastBuildDate>
+    <lastBuildDate>Fri, 22 Jan 2016 02:57:19 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GitHub OAuth Authentication using Nodejs And Express</title>
+      <link>http://yasoob.github.io/gci/post/github-nodejs-express/</link>
+      <pubDate>Fri, 22 Jan 2016 02:57:19 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/github-nodejs-express/</guid>
+      <description>&lt;p&gt;Hi guys! In this post I will show you how you can use OAuth with GitHub. We will be using Nodejs and Express framework for accomplishing this task.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Setting up the files and installing the dependencies:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;First of all, let create all the files which we will be needing for this tutorial. Open the terminal and get to work:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir github_oauth
+$ cd github_oauth
+$ touch app.js package.json config.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now open &lt;code&gt;package.json&lt;/code&gt; and put in the following content:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;name&amp;quot;: &amp;quot;GitHubOAuth&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;A simple NodeJS app for authenticating to Github using OAuth.&amp;quot;,
+  &amp;quot;dependencies&amp;quot;: {
+    &amp;quot;httpdispatcher&amp;quot;: &amp;quot;0.4.0&amp;quot;,
+    &amp;quot;request&amp;quot;: &amp;quot;*&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make sure that you replace the name :)&lt;/p&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time to install the dependencies:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fleshing out the structure of our app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The authentication flow is detailed beautifully in this &lt;a href=&#34;https://developer.github.com/v3/oauth/&#34;&gt;help article&lt;/a&gt;. There are only two necessary endpoints which we need. The first one is &lt;code&gt;/login&lt;/code&gt; which will redirect the user to GitHub to get the tokens and the second one is &lt;code&gt;/callback&lt;/code&gt; which is the url GitHub will redirect the user to.&lt;/p&gt;
+
+&lt;p&gt;First of all go to &lt;a href=&#34;https://github.com/settings/applications/new&#34;&gt;GitHub&lt;/a&gt; and register a new application and save your credentials. Now add your credentials to the &lt;code&gt;config.js&lt;/code&gt; file like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.exports = {
+	&amp;quot;client_id&amp;quot;: &amp;quot;&amp;quot;,
+	&amp;quot;secret&amp;quot;: &amp;quot;&amp;quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s add some imports to our &lt;code&gt;app.js&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//Lets require/import the HTTP module
+var http = require(&#39;http&#39;);
+var dispatcher = require(&#39;httpdispatcher&#39;);
+var request = require(&#39;request&#39;);
+var url = require(&#39;url&#39;);
+
+//Configuration file [Not stored in Git]
+var config = require(&#39;./config.js&#39;);
+
+const HOST = &#39;localhost&#39;;
+const PORT=8080; 
+
+var GitHubConfig = {
+  &#39;client_id&#39;   : config[&#39;client_id&#39;],
+  &#39;secret&#39;      : config[&#39;secret&#39;],
+  &#39;redirect_uri&#39;: &#39;&#39;,
+  &#39;scope&#39;       : &#39;&#39;,
+  &#39;state&#39;       : Math.round(Math.random()*10)
+}
+
+//Route for static files&#39; folder
+dispatcher.setStatic(&#39;resources&#39;);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will setup the basic structure of our app.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Routes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time to setup the main &lt;code&gt;/&lt;/code&gt; route.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Get Homepage
+dispatcher.onGet(&amp;quot;/&amp;quot;, function(req, res) {
+    res.writeHead(200);
+    res.write(&amp;quot;&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;quot;+
+    	&amp;quot;&amp;lt;style&amp;gt;body{text-align: center;}a{color: #000000;border: 1px solid black;padding: 10px 30px;text-decoration: none;margin-top: 10em;display: inline-block;font-size: 20px;transition: all .5s;}&amp;quot;+
+    	&amp;quot;a:hover{background-color: black;color: white;}&amp;quot;+
+    	&amp;quot;&amp;lt;/style&amp;gt;&amp;quot;+
+    	&amp;quot;&amp;lt;a href=&#39;login&#39;&amp;gt;Login!&amp;lt;/a&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;quot;);
+    res.end();
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the above route we simply respond to the request with a simple html response created on the fly. Now we need to implement the &lt;code&gt;/login&lt;/code&gt; route which will redirect the user to GitHub for authentication:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//Redirect to login url on GitHub
+dispatcher.onGet(&amp;quot;/login&amp;quot;, function(req, res) {
+  var url = &#39;https://github.com/login/oauth/authorize&#39;
+  + &#39;?client_id=&#39; + GitHubConfig.client_id
+  + (GitHubConfig.scope ? &#39;&amp;amp;scope=&#39; + GitHubConfig.scope : &#39;&#39;)
+  + &#39;&amp;amp;state=&#39; + GitHubConfig.state;
+
+  res.setHeader(&#39;location&#39;, url);
+  res.statusCode = 302;
+  res.end();
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here we are constructing the url using our GitHub configuration and redirecting the user to the respective url.&lt;/p&gt;
+
+&lt;p&gt;Now we need to implement the &lt;code&gt;/callback&lt;/code&gt; route where GitHub will redirect the user to.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//Get &#39;em callbacks!
+dispatcher.onGet(&amp;quot;/callback&amp;quot;, function(req, res) {
+  var query = url.parse(req.url, true).query;
+  if (query.state == GitHubConfig.state){
+    payload = {
+      &#39;code&#39;:       	query.code,
+      &#39;client_id&#39;:     	GitHubConfig.client_id,
+      &#39;client_secret&#39;: 	GitHubConfig.secret
+    }
+    console.log(payload);
+    request.post({
+      url: &#39;https://github.com/login/oauth/access_token&#39;, 
+      formData: payload, 
+      headers: {&#39;Accept&#39;: &#39;application/json&#39;}
+      }, function (error, response, body) {
+            if (!error &amp;amp;&amp;amp; response.statusCode == 200) {
+              var token = JSON.parse(body).access_token;
+              res.statusCode = 302;
+              authorized(res, token);
+            }
+      }
+    );
+
+  };
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, this route seems a bit complex. Let&amp;rsquo;s deconstruct it step by step. First of all we extract the queries from the url. This includes everything after the &lt;code&gt;?&lt;/code&gt; in the url. Next we do a simple check &lt;code&gt;query.state == GitHubConfig.state&lt;/code&gt; for fighting against CSRF attacks. After that we construct a payload which is just a fancy name for data sent with post request. Then we do a post request to GitHub and ask it to return us the token which we can use to make authenticated requests on behalf of the user.&lt;/p&gt;
+
+&lt;p&gt;Hey! Where is this &lt;code&gt;authorized()&lt;/code&gt; function coming from? Well, we haven&amp;rsquo;t implemented it yet. Now is the best time to implement it :)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var authorized = function(res, token){
+  request.get({
+    url: &amp;quot;https://api.github.com/user&amp;quot;, 
+    headers: {&#39;Authorization&#39;: &#39;token &#39;+token, &#39;User-Agent&#39;: &#39;Mozilla/5.0&#39;}}, 
+    function(error, response, body) {
+        if (!error &amp;amp;&amp;amp; response.statusCode == 200) {
+            body = JSON.parse(body);
+            var user = body.login;
+            res.end(&amp;quot;&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;quot;+
+            	&amp;quot;&amp;lt;style&amp;gt;.key{font-size:18px; color:blue;font-weight:bold;}.string,.number,.boolean,.null{font-size:18px;}&amp;lt;/style&amp;gt;&amp;quot;+
+            	&amp;quot;&amp;lt;pre&amp;gt;&amp;quot;+syntaxHighlight(JSON.stringify(body,null,2))+
+            	&amp;quot;&amp;lt;/pre&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;quot;
+            );
+        } else {
+            console.log(body);
+            res.end(body);
+        }
+    }
+  );
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this function we do a simple get request to GitHub and ask it to return us the User data. We are also using a syntaxHighlight function which simply syntax highlights our json response:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var syntaxHighlight = function(json) {
+    if (typeof json != &#39;string&#39;) {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&amp;amp;/g, &#39;&amp;amp;amp;&#39;).replace(/&amp;lt;/g, &#39;&amp;amp;lt;&#39;).replace(/&amp;gt;/g, &#39;&amp;amp;gt;&#39;);
+    return json.replace(/(&amp;quot;(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\&amp;quot;])*&amp;quot;(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = &#39;number&#39;;
+        if (/^&amp;quot;/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = &#39;key&#39;;
+            } else {
+                cls = &#39;string&#39;;
+            }
+        } else if (/true|false/.test(match)) {
+            cls = &#39;boolean&#39;;
+        } else if (/null/.test(match)) {
+            cls = &#39;null&#39;;
+        }
+        return &#39;&amp;lt;span class=&amp;quot;&#39; + cls + &#39;&amp;quot;&amp;gt;&#39; + match + &#39;&amp;lt;/span&amp;gt;&#39;;
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our application is finished! Now we just need to add the initializing code.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Adding the initializing code&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Just add the following code at the bottom of the &lt;code&gt;app.js&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//Create a server
+var server = http.createServer(handleRequest);
+
+//Lets start our server
+server.listen(PORT, function(){
+    //Callback triggered when server is successfully listening. Hurray!
+    console.log(&amp;quot;Server listening on: http://localhost:%s&amp;quot;, PORT);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we are truly finished.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Running the app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can easily run the app by typing in the following command in the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nodejs app.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I hope you enjoyed the tutorial. I will see you later :)&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>HTML5 &amp; JS File API Useage</title>
