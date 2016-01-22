@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="http://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/normalize.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/skeleton.css">
+<link rel="stylesheet" href="http://yasoob.github.io/gci/css/custom.css">
+<link rel="alternate" href="http://yasoob.github.io/gci/index.xml" type="application/rss+xml" title="Yasoob Khalid">
+<title>Scraping Euro Parliament Website Using Python - Yasoob Khalid</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="http://yasoob.github.io/gci/"><img src="http://yasoob.github.io/gci/images/yasoob.jpg" width="60" height="60"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Scraping Euro Parliament Website Using Python</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2016-01-22">January 22, 2016</time></span>
+			<section itemprop="entry-text">
+				<p>Hi guys! I hope you are fine. In this post I will show you how you can scrape public parliament data from the <a href="http://www.europarl.europa.eu/">European Parliament</a> website. In the European Parliament Members may pose written and oral questions to the European Institutions. Our task is to extract the answers to these questions.</p>
+
+<p>We will be using Python to accomplish this task. Let&rsquo;s set up our directory and the <code>app.py</code> file.</p>
+
+<p><strong>Setting up the directories</strong></p>
+
+<p>Let&rsquo;s create a virtual environment and a new directory for holding all our python and other related files.</p>
+
+<pre><code>$ cd ~/Desktop
+$ mkdir scrape-europarl
+$ cd scrape-europarl
+$ mkdir data
+$ virtualenv env
+$ source env/bin/activate
+</code></pre>
+
+<p>The <code>data</code> directory will contain all the downloaded files. Now let&rsquo;s create our <code>app.py</code> file:</p>
+
+<pre><code>$ touch app.py
+</code></pre>
+
+<p>We should also create our <code>requirements.txt</code> file for keeping track of all the required libraries.</p>
+
+<pre><code>$ touch requirements.txt
+</code></pre>
+
+<p>Now open the <code>requirements.txt</code> file and add the following lines to it:</p>
+
+<pre><code>requests
+lxml
+</code></pre>
+
+<p>Now install the requirements by running:</p>
+
+<pre><code>$ pip install -r requirements.txt
+</code></pre>
+
+<p>We are good to go now!</p>
+
+<p><strong>Modifing the <code>app.py</code> file</strong></p>
+
+<p>First of all we need to import the required modules:</p>
+
+<pre><code>import requests
+import lxml.html
+import os
+</code></pre>
+
+<p>Now we need a function which can be used to download <code>.pdf</code> and <code>.docx</code> files. This is a generic function which can be used in a lot of projects so you can even save it for later use:</p>
+
+<pre><code>def download_file(file_name, url):
+    r = requests.get(url, stream=True)
+    with open(file_name, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk:
+                f.write(chunk)
+    return file_name
+</code></pre>
+
+<p>You need to provide this function a valid filename with a valid extension (e.g <code>.docx</code>| <code>.pdf</code>) and a valid url.</p>
+
+<p>So now we need to find the required endpoints where the data is being served on the euro parliament website. After poking around a bit I found this url: <code>http://www.europarl.europa.eu/RegistreWeb/search/typedoc.htm?codeTypeDocu=QECR&amp;year=2015&amp;currentPage=</code></p>
+
+<p>You can add any <code>page number</code> at the end of the above url. This way you can enumerate all the documents on the website. After researching a bit I got to know that there are a total of <strong>1380</strong> pages. Good, now we can easily open and scrape all the pages. Below is the crux of our <code>app.py</code> file:</p>
+
+<pre><code>for i in range(1, 1381):
+    url = &quot;http://www.europarl.europa.eu/RegistreWeb/search/typedoc.htm?codeTypeDocu=QECR&amp;year=2015&amp;currentPage={0}&quot;.format(i)
+    html = lxml.html.parse(url)
+    titles = [i.strip() for i in html.xpath(&quot;//div[contains(@class, 'notice')]/p[@class='title']/a/text()&quot;)]
+    docs = [i.strip() for i in html.xpath(&quot;//div[contains(@class, 'notice')]/ul/li/a/@href&quot;)]
+    q_refs = [i.strip() for i in html.xpath(&quot;//div[contains(@class, 'notice')]/div[@class='date_reference']/span[2]/text()&quot;)]
+    for title, doc, q_ref in zip(titles, docs, q_refs):
+        file_name = os.path.join(os.getcwd(),'data','-'.join(title.split('/'))+' '+q_ref+'.'+doc.split('.')[-1])
+        downloaded_file = download_file(file_name, doc)
+        print downloaded_file
+</code></pre>
+
+<p>There is a lot going on here. Let me explain it. Firstly, we open the url using lxml. Then we again use lxml to extract all the <em>titles</em>, <em>docs</em> and <em>q_refs</em> from the html document (We use <strong>xpaths</strong> to achieve this). This returns a Python list. Next we loop over all three lists using a <code>for</code> loop and <code>zip</code> command. Next we extract the file_name from <code>q_ref</code> and pass the file_name+download link to <code>download_file</code> function. It downloads the file and returns the relative path of the downloaded file. Finally, we print the relative path of the downloaded file.</p>
+
+<p>Now you can run <code>app.py</code>:</p>
+
+<pre><code>$ python app.py
+</code></pre>
+
+<p>Congrats! Your scraper is working. I hope you enjoyed this post. Stay tuned for new posts in near future!</p>
+
+<p><strong>Note:</strong> All of the above code can also be found on <a href="https://github.com/yasoob/scrape-europarl/">this repo</a> of mine.</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:yasoob.khld@gmail.com" target="_blank">Email</a></span>
+			<a href="https://twitter.com/yasoobkhalid" target="_blank">Twitter</a></span>
+			<a href="https://www.facebook.com/m.yasoob" target="_blank">Facebook</a></span>
+			<a href="https://github.com/yasoob/" target="_blank">GitHub</a></span>
+		</div>
+		<div class="copyright">Copyright &copy; Yasoob. All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

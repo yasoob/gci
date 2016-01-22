@@ -6,8 +6,104 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Jan 2016 02:57:19 +0500</lastBuildDate>
+    <lastBuildDate>Fri, 22 Jan 2016 21:02:44 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scraping Euro Parliament Website Using Python</title>
+      <link>http://yasoob.github.io/gci/post/scraping-euro-parliament/</link>
+      <pubDate>Fri, 22 Jan 2016 21:02:44 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/scraping-euro-parliament/</guid>
+      <description>&lt;p&gt;Hi guys! I hope you are fine. In this post I will show you how you can scrape public parliament data from the &lt;a href=&#34;http://www.europarl.europa.eu/&#34;&gt;European Parliament&lt;/a&gt; website. In the European Parliament Members may pose written and oral questions to the European Institutions. Our task is to extract the answers to these questions.&lt;/p&gt;
+
+&lt;p&gt;We will be using Python to accomplish this task. Let&amp;rsquo;s set up our directory and the &lt;code&gt;app.py&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Setting up the directories&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s create a virtual environment and a new directory for holding all our python and other related files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd ~/Desktop
+$ mkdir scrape-europarl
+$ cd scrape-europarl
+$ mkdir data
+$ virtualenv env
+$ source env/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;data&lt;/code&gt; directory will contain all the downloaded files. Now let&amp;rsquo;s create our &lt;code&gt;app.py&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch app.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We should also create our &lt;code&gt;requirements.txt&lt;/code&gt; file for keeping track of all the required libraries.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch requirements.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now open the &lt;code&gt;requirements.txt&lt;/code&gt; file and add the following lines to it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;requests
+lxml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now install the requirements by running:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install -r requirements.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are good to go now!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Modifing the &lt;code&gt;app.py&lt;/code&gt; file&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;First of all we need to import the required modules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import requests
+import lxml.html
+import os
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need a function which can be used to download &lt;code&gt;.pdf&lt;/code&gt; and &lt;code&gt;.docx&lt;/code&gt; files. This is a generic function which can be used in a lot of projects so you can even save it for later use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def download_file(file_name, url):
+    r = requests.get(url, stream=True)
+    with open(file_name, &#39;wb&#39;) as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk:
+                f.write(chunk)
+    return file_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You need to provide this function a valid filename with a valid extension (e.g &lt;code&gt;.docx&lt;/code&gt;| &lt;code&gt;.pdf&lt;/code&gt;) and a valid url.&lt;/p&gt;
+
+&lt;p&gt;So now we need to find the required endpoints where the data is being served on the euro parliament website. After poking around a bit I found this url: &lt;code&gt;http://www.europarl.europa.eu/RegistreWeb/search/typedoc.htm?codeTypeDocu=QECR&amp;amp;year=2015&amp;amp;currentPage=&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can add any &lt;code&gt;page number&lt;/code&gt; at the end of the above url. This way you can enumerate all the documents on the website. After researching a bit I got to know that there are a total of &lt;strong&gt;1380&lt;/strong&gt; pages. Good, now we can easily open and scrape all the pages. Below is the crux of our &lt;code&gt;app.py&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for i in range(1, 1381):
+    url = &amp;quot;http://www.europarl.europa.eu/RegistreWeb/search/typedoc.htm?codeTypeDocu=QECR&amp;amp;year=2015&amp;amp;currentPage={0}&amp;quot;.format(i)
+    html = lxml.html.parse(url)
+    titles = [i.strip() for i in html.xpath(&amp;quot;//div[contains(@class, &#39;notice&#39;)]/p[@class=&#39;title&#39;]/a/text()&amp;quot;)]
+    docs = [i.strip() for i in html.xpath(&amp;quot;//div[contains(@class, &#39;notice&#39;)]/ul/li/a/@href&amp;quot;)]
+    q_refs = [i.strip() for i in html.xpath(&amp;quot;//div[contains(@class, &#39;notice&#39;)]/div[@class=&#39;date_reference&#39;]/span[2]/text()&amp;quot;)]
+    for title, doc, q_ref in zip(titles, docs, q_refs):
+        file_name = os.path.join(os.getcwd(),&#39;data&#39;,&#39;-&#39;.join(title.split(&#39;/&#39;))+&#39; &#39;+q_ref+&#39;.&#39;+doc.split(&#39;.&#39;)[-1])
+        downloaded_file = download_file(file_name, doc)
+        print downloaded_file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is a lot going on here. Let me explain it. Firstly, we open the url using lxml. Then we again use lxml to extract all the &lt;em&gt;titles&lt;/em&gt;, &lt;em&gt;docs&lt;/em&gt; and &lt;em&gt;q_refs&lt;/em&gt; from the html document (We use &lt;strong&gt;xpaths&lt;/strong&gt; to achieve this). This returns a Python list. Next we loop over all three lists using a &lt;code&gt;for&lt;/code&gt; loop and &lt;code&gt;zip&lt;/code&gt; command. Next we extract the file_name from &lt;code&gt;q_ref&lt;/code&gt; and pass the file_name+download link to &lt;code&gt;download_file&lt;/code&gt; function. It downloads the file and returns the relative path of the downloaded file. Finally, we print the relative path of the downloaded file.&lt;/p&gt;
+
+&lt;p&gt;Now you can run &lt;code&gt;app.py&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python app.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Congrats! Your scraper is working. I hope you enjoyed this post. Stay tuned for new posts in near future!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; All of the above code can also be found on &lt;a href=&#34;https://github.com/yasoob/scrape-europarl/&#34;&gt;this repo&lt;/a&gt; of mine.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>GitHub OAuth Authentication using Nodejs And Express</title>
