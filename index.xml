@@ -108,7 +108,7 @@ import os
     <item>
       <title>GitHub OAuth Authentication using Nodejs And Express</title>
       <link>http://yasoob.github.io/gci/post/github-nodejs-express/</link>
-      <pubDate>Fri, 22 Jan 2016 02:57:19 +0500</pubDate>
+      <pubDate>Tue, 19 Jan 2016 02:57:19 +0500</pubDate>
       
       <guid>http://yasoob.github.io/gci/post/github-nodejs-express/</guid>
       <description>&lt;p&gt;Hi guys! In this post I will show you how you can use OAuth with GitHub. We will be using Nodejs and Express framework for accomplishing this task.&lt;/p&gt;
