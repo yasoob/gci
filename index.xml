@@ -6,8 +6,65 @@
     <description>Recent content on Yasoob Khalid</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Jan 2016 21:02:44 +0500</lastBuildDate>
+    <lastBuildDate>Sat, 23 Jan 2016 14:28:02 +0500</lastBuildDate>
     <atom:link href="http://yasoob.github.io/gci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>My Google Code-In Experience with FOSSASIA</title>
+      <link>http://yasoob.github.io/gci/post/codein-fossasia-experience/</link>
+      <pubDate>Sat, 23 Jan 2016 14:28:02 +0500</pubDate>
+      
+      <guid>http://yasoob.github.io/gci/post/codein-fossasia-experience/</guid>
+      <description>&lt;p&gt;Hi folks. In two days Google Code-in is going to end. Now is a good time to look back and reflect upon what I learned and achieved through this event. In this post I will try to share my experience regarding Google Code-in and especially FOSSASIA (this is the organization which I worked with)s.&lt;/p&gt;
+
+&lt;p&gt;This was/is my first Code-in. I didn&amp;rsquo;t have any experience before so I was not sure what to expect. I was not aware of how this competition will turn out and what the organization/mentors&amp;rsquo; behaviors will be. Well, I am more than happy to say that this competition fulfilled all my expectations and I thoroughly enjoyed it. What made it more enjoyable was the organization and mentors which I worked with!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;What is the most important thing you learned in the contest?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I learned about team-work and that I am not the only talented young programmer. I learned that in order to succeed you need to do team-work. You need to take help from others and you need to delegate some of your tasks. This was the hardest lesson for me. I am not accustomed to sharing my work with anyone but this competition taught me the importance of sharing.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;What was your favorite task?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There were actually a couple of them. Firstly, I loved the Django task (Making a personal website). Then there were these NodeJs (the only real dev language :P) tasks, in particular the &lt;a href=&#34;http://yasoob.github.io/gci/post/github-nodejs-express/&#34;&gt;GitHub OAuth task&lt;/a&gt;. These were my favorite because they were big and required the students to spend a &lt;em&gt;bit-more-than-usual&lt;/em&gt; time to complete these projects.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;What could FOSSASIA mentors do in future contests to make them better?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are quite a few things they can do. Firstly, they can make themselves available in the IRC. Currently only a few of the mentors can be seen lurking around in the IRC whereas most of the active members of the &lt;code&gt;#fossasia&lt;/code&gt; IRC channel are the students. Being available on the IRC enables the students to get quick responses from the mentors.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;What are your plans regarding involvement with FOSSASIA and open source in future?&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have always been an Open Source fan. As a matter of fact I even &lt;a href=&#34;http://book.pythontips.com&#34;&gt;released my book&lt;/a&gt; under CC license which is also available on &lt;a href=&#34;https://github.com/yasoob/intermediatePython/&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;My plan is to continue my involvement with FOSSASIA &lt;em&gt;and&lt;/em&gt; Open Source development as long as I can. I will try to continue contributing to the projects of FOSSASIA and even try to become a mentor from this organization in the next GCI.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Through this competition I got an opportunity to make some nice friends from all over the world. In particular, I met &lt;a href=&#34;github.com/codethejason&#34;&gt;Jason Wong&lt;/a&gt; and &lt;a href=&#34;https://github.com/yathannsh&#34;&gt;Yathannsh Kulshrestha&lt;/a&gt;. I was able to immediately connect/relate with both of these individuals. I hope to continue these friendships after GCI as well. It is not common that you meet awesome individuals on the Internet.&lt;/p&gt;
+
+&lt;p&gt;I also met some awesome mentors along the way. A few of them are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jig08&#34;&gt;Jigyasa Grover&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sudheesh001&#34;&gt;Sudheesh Singanamalla&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/mananwason&#34;&gt;Manan Wason&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/mariobehling&#34;&gt;Mario Behling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/roonyh/&#34;&gt;Aruna Herath&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Orbiter&#34;&gt;Michael Peter Christen&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There were a lot of other amazing mentors as well who made this installment of GCI the best it could ever be. The above listed mentors are those with whom I worked the most.&lt;/p&gt;
+
+&lt;p&gt;If you are 13-17 years old then I would like to urge you to give Google Code-In a try. If you end up participating in it then opt for &lt;strong&gt;FOSSASIA&lt;/strong&gt;. This organization is full of amazing mentors who are always available to guide you and help you as much as they possibly can.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Scraping Euro Parliament Website Using Python</title>
